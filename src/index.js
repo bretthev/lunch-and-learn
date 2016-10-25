@@ -1,9 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, compose } from 'redux';
+import App from './components/App';
+import rootReducer from './reducers/rootReducer.js';
+import Routes from './router.js';
+import { browserHistory } from 'react-router';
 
-ReactDOM.render(
-  <App />,
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, {}, composeEnhancers());
+
+render(
+  <Provider store={store}>
+    <Routes history={browserHistory} />
+  </Provider>,
   document.getElementById('root')
-);
+)
