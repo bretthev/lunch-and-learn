@@ -4,9 +4,9 @@ import { signIn } from '../actions/authActions';
 import SignIn from '../components/SignIn'
 
 const mapStateToProps = (state) => {
-  const authState = state.auth;
+  const currentUser = state.currentUser;
   return {
-    authState
+    currentUser
   }
 }
 
