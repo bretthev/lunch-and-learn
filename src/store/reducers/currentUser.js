@@ -1,7 +1,6 @@
 import { initialState } from '../initialState';
 
 const currentUser = ( state = initialState, action ) => {
-  console.log(action)
   switch(action.type) {
     case "USER_LOGGED_IN":
       return {
