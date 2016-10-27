@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import Routes from './router.js';
 import { browserHistory } from 'react-router';
 import store from './store/storeIndex';
-// require("!style!css!sass!./styles/style-index.scss");
+require("./styles/style-index.scss");
 
 
 
