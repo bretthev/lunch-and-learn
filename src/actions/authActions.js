@@ -25,4 +25,4 @@ function signIn() {
   }
 }
 
-export { signIn };
+export { signIn, firebaseApp };

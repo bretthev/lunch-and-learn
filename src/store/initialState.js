@@ -3,5 +3,6 @@ export const initialState = {
     uid: null,
     username: null,
     email: null
-  }
+  },
+  proposals: []
 }
