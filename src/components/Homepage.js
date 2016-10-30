@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import ProposalList from '../containers/ProposalList';
 import { Link } from 'react-router';
 
 const Homepage = ({ currentUser }) => {
@@ -7,6 +8,7 @@ const Homepage = ({ currentUser }) => {
       <h1>
       {currentUser.username ? `Hello ${currentUser.username}!` : `Loading your profile...`}
       </h1>
+      <ProposalList />
       <Link to="/AddProposal">
         <button>Add new proposal</button>
       </Link>

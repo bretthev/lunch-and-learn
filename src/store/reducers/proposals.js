@@ -1,15 +1,15 @@
 const proposals = ( state = [], action ) => {
-  console.log(action)
   switch(action.type) {
     case "ADD_PROPOSAL":
       return state.concat({
         author: action.author,
         title: action.title,
-        body: action.body
+        body: action.body,
+        key: Date.now()
       });
       default:
         return state;
   };
 };
 
-export default proposals
+export default proposals;

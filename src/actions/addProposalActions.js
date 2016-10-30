@@ -1,8 +1,7 @@
 import firebase from 'firebase';
-// import firebaseApp from './authActions';
 
-// const proposalsDatabase = firebaseApp.database().ref('proposals');
 
+const proposalsDatabase = firebase.database().ref('proposals');
 
 function sendProposalToStore(proposalForm) {
   return (dispatch) => {
@@ -10,19 +9,19 @@ function sendProposalToStore(proposalForm) {
       type: 'ADD_PROPOSAL',
       author: proposalForm.author,
       title: proposalForm.title,
-      body: proposalForm.body
+      body: proposalForm.body,
+      key: Date.now()
     })
+    sendProposalToDatabase(proposalForm)
   }
 }
 
-// function sendProposalToDatabase(proposalObject) {
-//   return (dispatch) => {
-//     proposalsDatabase.push({
-//       author: proposalObject.user,
-//       title: proposalObject.title,
-//       body: proposalObject.body
-//     })
-//   }
-// }
+function sendProposalToDatabase(proposalObject) {
+    proposalsDatabase.push({
+      author: proposalObject.author,
+      title: proposalObject.title,
+      body: proposalObject.body
+    })
+}
 
 export { sendProposalToStore }

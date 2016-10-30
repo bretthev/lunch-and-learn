@@ -1,4 +1,5 @@
 import React from 'react';
+import ProposalList from '../containers/ProposalList'
 
 const AddProposal = ({currentUser, sendProposalToStore}) => {
   let proposalTitle;
@@ -17,6 +18,7 @@ const AddProposal = ({currentUser, sendProposalToStore}) => {
         <input placeholder="Proposal Content" className="content-input" ref={ node => { proposalBody = node}}/>
         <button>Submit Proposal</button>
       </form>
+      <ProposalList />
     </section>
   )
 }
