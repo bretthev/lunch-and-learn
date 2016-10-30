@@ -4,12 +4,12 @@ import { map } from 'lodash';
 
 export class ProposalList extends React.Component {
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getProposalsFromDatabase()
   };
 
   render() {
-    console.log(this.props)
+    console.log(this.props.proposals)
     const displayProposals = map(this.props.proposals, (proposal) => {return <Proposal {...proposal}/>});
     return (
       <section className="proposal-list">
