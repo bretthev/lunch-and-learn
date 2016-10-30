@@ -1,5 +1,6 @@
 import firebase from 'firebase';
-
+import firebaseApp from './authActions'
+import { map } from 'lodash';
 
 const proposalsDatabase = firebase.database().ref('proposals');
 
@@ -24,4 +25,17 @@ function sendProposalToDatabase(proposalObject) {
     })
 }
 
-export { sendProposalToStore }
+function getProposalsFromDatabase() {
+  return (dispatch) => {
+    let proposals = [];
+    proposalsDatabase.limitToLast(5).on('value', (snapshot) => {
+      map(snapshot.val(), (proposal) => { proposals.push(proposal)})
+    })
+    dispatch({
+      type: 'GET_PROPOSALS_FROM_DATABASE',
+      proposals
+    })
+  }
+}
+
+export { sendProposalToStore, getProposalsFromDatabase }
