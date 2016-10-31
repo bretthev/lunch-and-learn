@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { sendProposalToStore } from '../actions/addProposalActions';
+import { sendProposalToStore } from '../actions/proposalActions';
 import AddProposal from '../components/AddProposal';
 
 const mapStateToProps = (state) => {

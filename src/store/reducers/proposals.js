@@ -3,7 +3,7 @@ const proposals = ( state = [], action ) => {
     case 'GET_PROPOSALS_FROM_DATABASE':
       return state.concat(action.proposals)
     case 'ADD_PROPOSAL':
-      return state.concat(action.proposal)
+      return state.concat(action.proposalObject)
     default: return state;
   };
 };

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getProposalsFromDatabase } from '../actions/addProposalActions';
+import { getProposalsFromDatabase } from '../actions/proposalActions';
 import { bindActionCreators } from 'redux';
 import ProposalList from '../components/ProposalList';
 

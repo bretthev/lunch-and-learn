@@ -9,8 +9,7 @@ export class ProposalList extends React.Component {
   };
 
   render() {
-    console.log(this.props.proposals)
-    const displayProposals = map(this.props.proposals, (proposal) => {return <Proposal {...proposal}/>});
+    const displayProposals = map(this.props.proposals, (proposal) => {return <Proposal key={proposal.timestamp} {...proposal}/>});
     return (
       <section className="proposal-list">
       <h1>Proposals</h1>

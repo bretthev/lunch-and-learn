@@ -5,9 +5,10 @@ import { map } from 'lodash';
 const proposalsDatabase = firebase.database().ref('proposals');
 
 function sendProposalToStore(proposal) {
+  let proposalObject = {author: proposal.author, title: proposal.title, body: proposal.body, timestamp: Date.now()}
   return (dispatch) => {
-    dispatch({ type: 'ADD_PROPOSAL', proposal})
-    sendProposalToDatabase(proposal)
+    dispatch({ type: 'ADD_PROPOSAL', proposalObject})
+    sendProposalToDatabase(proposalObject)
   }
 }
 
@@ -16,7 +17,7 @@ function sendProposalToDatabase(proposalObject) {
       author: proposalObject.author,
       title: proposalObject.title,
       body: proposalObject.body,
-      timestamp: Date.now()
+      timestamp: proposalObject.timestamp
     })
 }
 
