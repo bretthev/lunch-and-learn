@@ -4,14 +4,6 @@ import { map, extend } from 'lodash';
 
 const proposalsDatabase = firebase.database().ref('proposals');
 
-// function sendProposalToStore(proposal) {
-//   let proposalObject = {author: proposal.author, title: proposal.title, body: proposal.body, timestamp: Date.now()}
-//   return (dispatch) => {
-//     dispatch({ type: 'ADD_PROPOSAL', proposalObject})
-//     sendProposalToDatabase(proposalObject)
-//   }
-// }
-
 function sendProposalToDatabase(proposalObject) {
     proposalsDatabase.push({
       author: proposalObject.author,
@@ -25,7 +17,7 @@ function sendProposalToDatabase(proposalObject) {
 }
 
 function getProposalsFromDatabase() {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     let proposals;
     proposalsDatabase.on('value', (snapshot) => {
       proposals = snapshot.val();
@@ -40,5 +32,15 @@ function getProposalsFromDatabase() {
   }
 }
 
+function deleteProposal(key) {
+  firebase.database().ref(`proposals/${key}`).remove();
+  return (dispatch, getState) => {
+    dispatch({
+      type: 'DELETE_PROPOSAL',
+      key
+    })
+  }
+}
 
-export { sendProposalToDatabase, getProposalsFromDatabase }
+
+export { sendProposalToDatabase, getProposalsFromDatabase, deleteProposal }
