@@ -5,7 +5,6 @@ import { map } from 'lodash';
 export class ProposalList extends React.Component {
 
   componentWillMount() {
-    console.log('testing')
     this.props.getProposalsFromDatabase();
   };
 
@@ -23,7 +22,7 @@ export class ProposalList extends React.Component {
     }
     else {
       return (
-        <h3>Grabbing proposals...</h3>
+        <h3>No proposals.</h3>
       )
     }
   }
