@@ -2,7 +2,6 @@ import React from 'react';
 import ProposalList from './ProposalList';
 
 const Proposal = (proposal) => {
-  console.log(proposal.proposalId)
   return (
     <li>
       <h2>{proposal.title}</h2>
