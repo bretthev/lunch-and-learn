@@ -45,5 +45,14 @@ function deleteProposal(key) {
   }
 }
 
+function editProposal(proposal) {
+  firebase.database().ref(`proposals/${proposal.id}`).set({
+    author: proposal.author,
+    title: proposal.title,
+    body: proposal.body,
+    timestamp: proposal.timestamp
+  })
+}
+
 
 export { sendProposalToDatabase, getProposalsFromDatabase, deleteProposal }
