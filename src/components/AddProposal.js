@@ -1,7 +1,8 @@
 import React from 'react';
 import ProposalList from '../containers/ProposalList'
+import { Link } from 'react-router';
 
-const AddProposal = ({currentUser, sendProposalToStore}) => {
+const AddProposal = ({currentUser, sendProposalToDatabase}) => {
   let proposalTitle;
   let proposalBody;
   return (
@@ -10,7 +11,7 @@ const AddProposal = ({currentUser, sendProposalToStore}) => {
       <form className="add-proposal-form"
         onSubmit={ (e) => {
           e.preventDefault()
-          sendProposalToStore({author: currentUser.username, title: proposalTitle.value, body: proposalBody.value})
+          sendProposalToDatabase({author: currentUser.username, title: proposalTitle.value, body: proposalBody.value, timestamp: Date.now()})
           proposalTitle.value='';
           proposalBody.value='';
         }}>
@@ -18,7 +19,9 @@ const AddProposal = ({currentUser, sendProposalToStore}) => {
         <input placeholder="Proposal Content" className="content-input" ref={ node => { proposalBody = node}}/>
         <button>Submit Proposal</button>
       </form>
-      <ProposalList />
+      <Link to ="/Home">
+        <button>Home</button>
+      </Link>
     </section>
   )
 }

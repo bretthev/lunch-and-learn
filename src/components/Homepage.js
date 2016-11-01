@@ -10,7 +10,7 @@ const Homepage = ({ currentUser }) => {
       </h1>
       <ProposalList />
       <Link to="/AddProposal">
-        <button>Add new proposal</button>
+        <button>Add proposal</button>
       </Link>
     </section>
   )

@@ -5,14 +5,14 @@ import { map } from 'lodash';
 export class ProposalList extends React.Component {
 
   componentWillMount() {
-    this.props.getProposalsFromDatabase()
-  };
-
+    this.props.getProposalsFromDatabase();
+  }
+  
   render() {
-    const displayProposals = map(this.props.proposals, (proposal) => {return <Proposal key={proposal.timestamp} {...proposal}/>});
+    const displayProposals = map(this.props.proposals, (p) => {return <Proposal key={p.key} {...p} deleteProposal={this.props.deleteProposal(p.key)}/>});
     return (
       <section className="proposal-list">
-      <h1>Proposals</h1>
+      { this.props.proposals.length > 0 ? <h1>Proposals</h1>  : ``}
         <ul className="proposal-list-ul">
           {displayProposals}
         </ul>
