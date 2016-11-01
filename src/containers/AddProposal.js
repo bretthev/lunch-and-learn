@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { sendProposalToStore } from '../actions/proposalActions';
+import { sendProposalToDatabase } from '../actions/proposalActions';
 import AddProposal from '../components/AddProposal';
 
 const mapStateToProps = (state) => {
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ sendProposalToStore }, dispatch)
+  return bindActionCreators({ sendProposalToDatabase }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddProposal)
