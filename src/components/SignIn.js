@@ -7,7 +7,7 @@ const Signin = ({ currentUser, signIn }) => {
       <h1>Lunch and Learn</h1>
       <Link to="/Home">
       <button className="login-button"
-              onClick={e => signIn ()}>
+              onClick={e => signIn()}>
         Sign In
       </button>
       </Link>

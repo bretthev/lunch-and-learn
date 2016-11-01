@@ -12,22 +12,25 @@ function sendProposalToDatabase(proposalObject) {
       timestamp: proposalObject.timestamp
     })
     return (dispatch) => {
-      dispatch({ type: 'ADD_PROPOSAL', proposalObject})
+      dispatch({
+        type: 'ADD_PROPOSAL',
+        proposalObject
+      })
     }
 }
 
 function getProposalsFromDatabase() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     let proposals;
     proposalsDatabase.on('value', (snapshot) => {
       proposals = snapshot.val();
-    })
-    let proposalsObject = map(proposals, (value, key) => extend(value, { key }))
-    let proposalsWithKeys = []
-    map(proposalsObject, (p) => { proposalsWithKeys.push(p)})
-    dispatch({
-      type: 'GET_PROPOSALS_FROM_DATABASE',
-      proposalsWithKeys
+      let proposalsObject = map(proposals, (value, key) => extend(value, { key }))
+      let proposalsWithKeys = []
+      map(proposalsObject, (p) => { proposalsWithKeys.push(p)})
+      dispatch({
+        type: 'GET_PROPOSALS_FROM_DATABASE',
+        proposalsWithKeys
+      })
     })
   }
 }

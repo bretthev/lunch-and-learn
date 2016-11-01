@@ -16,7 +16,7 @@ function signIn() {
     firebase.auth().signInWithPopup(google)
     .then(currentUserData => {
       dispatch({
-        type: 'USER_LOGGED_IN',
+        type: 'SIGN_IN',
         uid: currentUserData.user.uid,
         username: currentUserData.user.displayName,
         email: currentUserData.user.email
@@ -25,4 +25,21 @@ function signIn() {
   }
 }
 
-export { signIn, firebaseApp };
+function listenForUser() {
+  return (dispatch, getState) => {
+    firebase.auth().onAuthStateChanged(userData => {
+      if (userData) {
+        dispatch({
+          type: 'USER_LOGGED_IN'
+        })
+      }
+      else {
+        signIn();
+      }
+    });
+  }
+};
+
+
+
+export { firebaseApp, listenForUser, signIn };
