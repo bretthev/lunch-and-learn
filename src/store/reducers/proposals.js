@@ -4,6 +4,9 @@ const proposals = ( state = [], action ) => {
       return action.proposalsWithKeys
     case 'ADD_PROPOSAL':
       return state.concat(action.proposalObject)
+    case 'DELETE_PROPOSAL':
+      const proposalKey = action.key
+      return state.filter(proposal => proposal.key !== proposalKey )
     default: return state;
   };
 };
