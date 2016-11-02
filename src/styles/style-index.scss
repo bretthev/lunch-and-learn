@@ -1,18 +1,14 @@
+@import 'reset';
 @import 'variables';
 @import 'mixins';
 @import 'sign-in';
+@import 'homepage';
+@import 'proposal-list';
 
-body {
+
+body, html, #root, .App {
   display: flex;
   background-color: $primary-color;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vh;
-}
-
-.signin-screen {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  height: 100%;
+  width: 100%;
 }

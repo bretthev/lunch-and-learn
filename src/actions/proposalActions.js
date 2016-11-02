@@ -68,7 +68,6 @@ function grabTargetProposal(proposal) {
 }
 
   function clearTargetProposal() {
-    console.log('testing')
     return (dispatch) => {
       dispatch({type: 'CLEAR_TARGET_PROPOSAL'})
     }
