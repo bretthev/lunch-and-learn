@@ -46,13 +46,33 @@ function deleteProposal(key) {
 }
 
 function editProposal(proposal) {
+  debugger;
   firebase.database().ref(`proposals/${proposal.id}`).set({
     author: proposal.author,
     title: proposal.title,
     body: proposal.body,
     timestamp: proposal.timestamp
   })
+  return (dispatch) => {
+    dispatch({
+      type: 'EDIT_PROPOSAL'
+    })
+  }
 }
 
+function grabTargetProposal(proposal) {
+  return (dispatch) => {
+    dispatch({type: 'TARGET_PROPOSAL',
+    proposal})
+  }
+}
 
-export { sendProposalToDatabase, getProposalsFromDatabase, deleteProposal }
+  function clearTargetProposal() {
+    console.log('testing')
+    return (dispatch) => {
+      dispatch({type: 'CLEAR_TARGET_PROPOSAL'})
+    }
+  }
+
+
+export { sendProposalToDatabase, getProposalsFromDatabase, deleteProposal, grabTargetProposal, clearTargetProposal, editProposal }

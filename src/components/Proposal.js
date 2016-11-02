@@ -1,9 +1,11 @@
 import React from 'react';
 import ProposalList from './ProposalList';
+import { Link } from 'react-router';
 
 const Proposal = (proposal) => {
   return (
-    <li>
+    <li onMouseEnter={e => proposal.grabProposal(proposal)}
+        onMouseLeave={e => proposal.clearProposal()}>
       <h2>{proposal.title}</h2>
       <h3>{proposal.author}</h3>
       <p>{proposal.body}</p>
@@ -13,7 +15,9 @@ const Proposal = (proposal) => {
       >
         Delete
       </button>
-      <button className="edit-proposal">Edit</button>
+      <Link to="/EditProposal">
+        <button className="edit-proposal">Edit</button>
+      </Link>
     </li>
   )
 }
