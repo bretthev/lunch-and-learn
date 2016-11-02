@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getProposalsFromDatabase, deleteProposal } from '../actions/proposalActions';
+import { getProposalsFromDatabase, deleteProposal, grabTargetProposal, clearTargetProposal } from '../actions/proposalActions';
 import { listenForUser } from '../actions/authActions';
 import { bindActionCreators } from 'redux';
 import ProposalList from '../components/ProposalList';
@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ listenForUser, getProposalsFromDatabase, deleteProposal }, dispatch)
+  return bindActionCreators({ getProposalsFromDatabase, deleteProposal, grabTargetProposal, clearTargetProposal }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProposalList)

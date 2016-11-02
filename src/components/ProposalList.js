@@ -9,7 +9,7 @@ export class ProposalList extends React.Component {
   };
 
   render() {
-    const displayProposals = map(this.props.proposals, (proposal) => {return <Proposal key={proposal.key || proposal.timestamp} deleteProposal={this.props.deleteProposal} proposalId={proposal.key} {...proposal}/>});
+    const displayProposals = map(this.props.proposals, (proposal) => {return <Proposal key={proposal.key || proposal.timestamp} deleteProposal={this.props.deleteProposal} proposalId={proposal.key} grabProposal={this.props.grabTargetProposal} clearProposal={this.props.clearTargetProposal} {...proposal}/>});
     if (this.props.proposals.length > 0) {
       return (
         <section className="proposal-list">

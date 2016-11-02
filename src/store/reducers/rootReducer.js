@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 import currentUser from './currentUser';
-import proposals from './proposals';
+import { proposals, targetProposal } from './proposals';
 
 
 const rootReducer = combineReducers({
   currentUser,
-  proposals
+  proposals,
+  targetProposal
 });
 
 export default rootReducer;
