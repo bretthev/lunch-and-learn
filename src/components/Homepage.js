@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 const Homepage = ({ currentUser }) => {
   return (
     <section className="homepage">
-      <h1>
+      <h1 className="homepage-title">
       {currentUser.username ? `Hello ${currentUser.username}!` : `Loading your profile...`}
       </h1>
       <ProposalList />

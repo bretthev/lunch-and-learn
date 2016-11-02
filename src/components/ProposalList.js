@@ -1,5 +1,6 @@
 import React from 'react';
-import Proposal from './Proposal';
+import AbbreviatedProposal from './AbbreviatedProposal';
+import TargetProposal from './TargetProposal';
 import { map } from 'lodash';
 
 export class ProposalList extends React.Component {
@@ -9,14 +10,16 @@ export class ProposalList extends React.Component {
   };
 
   render() {
-    const displayProposals = map(this.props.proposals, (proposal) => {return <Proposal key={proposal.key || proposal.timestamp} deleteProposal={this.props.deleteProposal} proposalId={proposal.key} grabProposal={this.props.grabTargetProposal} clearProposal={this.props.clearTargetProposal} {...proposal}/>});
+    const displayShortProposals = map(this.props.proposals, (proposal) => {return <AbbreviatedProposal key={proposal.key || proposal.timestamp} id={proposal.key} grabProposal={this.props.grabTargetProposal} clearProposal={this.props.clearTargetProposal} {...proposal}/>});
     if (this.props.proposals.length > 0) {
       return (
         <section className="proposal-list">
-        <h1>Proposals</h1>
-          <ul className="proposal-list-ul">
-            {displayProposals}
-          </ul>
+          <section className="proposal-list-container">
+              <ul className="proposal-list-ul">
+                {displayShortProposals}
+              </ul>
+              <TargetProposal deleteProposal={this.props.deleteProposal} {...this.props.targetProposal}/>
+          </section>
         </section>
       )
     }

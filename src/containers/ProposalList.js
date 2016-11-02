@@ -5,10 +5,11 @@ import { bindActionCreators } from 'redux';
 import ProposalList from '../components/ProposalList';
 
 const mapStateToProps = (state) => {
-  const { proposals, currentUser } = state;
+  const { proposals, currentUser, targetProposal } = state;
   return {
     proposals,
-    currentUser
+    currentUser,
+    targetProposal
   }
 }
 

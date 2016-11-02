@@ -1,0 +1,13 @@
+@import 'variables';
+
+.homepage {
+  width: 100%;
+  justify-content: center;
+}
+
+.homepage-title {
+  font-size: 2em;
+  font-family: $primary-font;
+  text-align: center;
+  margin-top: 30px;
+}
