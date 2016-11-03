@@ -5,9 +5,11 @@ import ProposalForm from '../components/ProposalForm';
 
 const mapStateToProps = (state) => {
   const { currentUser, targetProposal } = state;
+  const buttonText = 'Done editing.'
   return {
     currentUser,
-    targetProposal
+    targetProposal,
+    buttonText
   }
 };
 

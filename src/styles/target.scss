@@ -1,0 +1,48 @@
+@import 'variables';
+
+.target-proposal {
+  padding-top: 30px;
+  background-color: white;
+  display: flex;
+  align-items: flex-start;
+  width: 70%;
+  flex-direction: column;
+  padding-left: 15px;
+}
+
+.target-button-container {
+  flex-direction: row;
+}
+
+.target-title {
+  font-size: 1.5em;
+  font-family: $primary-font;
+  margin-bottom: 20px;
+}
+
+.target-author {
+  font-size: 1.25em;
+  font-weight: bold;
+  font-family: $secondary-font;
+  margin-bottom: 10px;
+}
+
+.target-body {
+  font-size: 1em;
+  font-family: $secondary-font;
+  text-align: justify;
+  width: 100%;
+}
+
+.target-button-container {
+  margin-top: 30px;
+  justify-content: space-around;
+}
+
+.empty-target-message {
+  font-family: $secondary-font;
+  font-weight: bold;
+  font-size: 1.5em;
+  width: 100%;
+  text-align: center;
+}

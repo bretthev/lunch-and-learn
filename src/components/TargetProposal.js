@@ -10,20 +10,20 @@ const TargetProposal = (proposal) => {
       <p className="target-body">{proposal.body}</p>
         {proposal.title !== '' ?
           <div className="target-button-container">
-              <Link to="/Home">
+                <Link to="/EditProposal">
+                  <button className="edit-proposal">
+                    Edit
+                  </button>
+                </Link>
                 <button
                 className="delete-proposal"
                 onClick={e => {proposal.deleteProposal(proposal.id)
-                              proposal.clearTarget()}}
-                >
+                  proposal.clearTarget()}}
+                  >
                   Delete
-                </button>
-              </Link>
-              <Link to="/EditProposal">
-                <button className="edit-proposal">Edit</button>
-              </Link>
+                  </button>
             </div>
-          : ''}
+          : <h2 className="empty-target-message">Click a proposal on the left to see more info.</h2>}
     </article>
   )
 }
