@@ -7,7 +7,8 @@
 $primary-color: #2FA68B;
 $primary-font: 'Yeseva One', cursive;
 $secondary-font: 'Josefin Sans', sans-serif;
-$accent-color: #DB4C32;
+$accent-color: #FFA630;
+$hover-text-color: black;
 
 
 //mixins
@@ -16,5 +17,6 @@ $accent-color: #DB4C32;
   font-family: $primary-font;
   border: none;
   outline: none;
-  background-color: $accent-color;
+  background-color: black;
+  border-radius: 20px;
 }

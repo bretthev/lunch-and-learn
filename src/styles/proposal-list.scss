@@ -19,10 +19,21 @@
   height: 100%;
 }
 
-.shortened-proposal {
+.short-proposal {
   border-bottom: 1px solid black;
   padding: 10px;
   text-align: center;
+  transition-duration: .25s;
+}
+
+.short-proposal:hover{
+  background-color: $accent-color;
+  color: $hover-text-color;
+}
+
+.active-short-proposal{
+  background-color: $accent-color;
+  color: white;
 }
 
 .short-title {
