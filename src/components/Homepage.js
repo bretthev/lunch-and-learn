@@ -2,16 +2,21 @@ import React from 'react';
 import ProposalList from '../containers/ProposalList';
 import { Link } from 'react-router';
 
-const Homepage = ({ currentUser }) => {
+const Homepage = ({ currentUser, clearTargetProposal }) => {
   return (
     <section className="homepage">
       <h1 className="homepage-title">
       {currentUser.username ? `Hello ${currentUser.username}!` : `Loading your profile...`}
       </h1>
       <ProposalList />
-      <Link to="/AddProposal">
-        <button>Add new proposal</button>
-      </Link>
+      <section className="dashboard">
+        <Link to="/AddProposal"
+            className="dashboard-link">
+          <button>
+            Add new proposal
+          </button>
+        </Link>
+      </section>
     </section>
   )
 }

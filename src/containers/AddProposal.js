@@ -4,11 +4,12 @@ import { sendProposalToDatabase, clearTargetProposal } from '../actions/proposal
 import ProposalForm from '../components/ProposalForm';
 
 const mapStateToProps = (state) => {
-  const currentUser = state.currentUser;
-  const targetProposal = state.targetProposal;
+  const { currentUser, targetProposal } = state;
+  const buttonText = 'Add proposal.'
   return {
     currentUser,
-    targetProposal
+    targetProposal,
+    buttonText
   }
 }
 

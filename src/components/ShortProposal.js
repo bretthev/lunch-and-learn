@@ -2,15 +2,15 @@ import React from 'react';
 import ProposalList from './ProposalList';
 import { Link } from 'react-router';
 
-const AbbreviatedProposal = (proposal) => {
+const ShortProposal = (proposal) => {
   return (
     <li
     className="shortened-proposal"
     onClick={e => proposal.grabProposal(proposal)}>
-      <h2>{proposal.title}</h2>
-      <h3>{proposal.author}</h3>
+      <h2 className="short-title">{proposal.title}</h2>
+      <h3 className="short-author">{proposal.author}</h3>
     </li>
   )
 }
 
-export default AbbreviatedProposal;
+export default ShortProposal;

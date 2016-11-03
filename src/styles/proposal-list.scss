@@ -1,14 +1,16 @@
 @import 'variables';
 
 .proposal-list {
-  height: 100%;
+  width: 100%;
+  justify-content: center;
 }
 
 .proposal-list-container {
-  width: 100%;
-  height: 100%;
+  width: 95%;
+  // height: 100%;
   display: flex;
   flex-direction: row;
+  margin: auto;
 }
 
 .proposal-list-ul {
@@ -20,22 +22,14 @@
 .shortened-proposal {
   border-bottom: 1px solid black;
   padding: 10px;
+  text-align: center;
 }
 
-.target-proposal {
-  padding-top: 50px;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  width: 70%;
+.short-title {
+  font-family: $primary-font;
+  margin-bottom: 10px;
 }
 
-.target-proposal {
-  flex-direction: column;
+.short-author {
+  font-family: $secondary-font;
 }
-
-.target-button-container {
-  flex-direction: row;
-}
-
-// .target

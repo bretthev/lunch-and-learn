@@ -1,9 +1,10 @@
 @import 'reset';
 @import 'variables';
-@import 'mixins';
 @import 'sign-in';
 @import 'homepage';
 @import 'proposal-list';
+@import 'target';
+@import 'dashboard';
 
 
 body, html, #root, .App {
