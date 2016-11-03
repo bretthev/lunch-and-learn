@@ -18,8 +18,7 @@ const ProposalForm = ({currentUser, submitProposal, targetProposal}) => {
         <input placeholder="Proposal Title" className="title-input" defaultValue={targetProposal.title} ref={ node => { proposalTitle = node}}/>
         <input placeholder="Proposal Content" className="content-input" defaultValue={targetProposal.body} ref={ node => { proposalBody = node}}/>
         <button>
-        <Link to="/Home"
-        onClick=>
+        <Link to="/Home">
         Submit Proposal
         </Link>
         </button>

@@ -13,12 +13,12 @@ const proposals = ( state = [], action ) => {
   };
 };
 
-const targetProposal = ( state = {title: '', body: ''}, action ) => {
+const targetProposal = ( state = {author: '', title: '', body: ''}, action ) => {
   switch(action.type) {
     case 'TARGET_PROPOSAL':
       return Object.assign({}, state, action.proposal)
     case 'CLEAR_TARGET_PROPOSAL':
-      return Object.assign({}, state, {title: '', body: '', id: null})
+      return Object.assign({}, state, {title: '', body: '', id: null, author:''})
   default: return state;
   }
 }
