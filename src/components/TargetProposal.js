@@ -11,12 +11,12 @@ const TargetProposal = (proposal) => {
         {proposal.title !== '' ?
           <div className="target-button-container">
                 <Link to="/EditProposal">
-                  <button className="edit-proposal">
+                  <button className="edit-proposal-button">
                     Edit
                   </button>
                 </Link>
                 <button
-                className="delete-proposal"
+                className="delete-proposal-button"
                 onClick={e => {proposal.deleteProposal(proposal.id)
                   proposal.clearTarget()}}
                   >

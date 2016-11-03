@@ -11,7 +11,11 @@
 }
 
 .target-button-container {
+  display: flex;
   flex-direction: row;
+  margin-top: 30px;
+  width: 100%;
+  justify-content: center;
 }
 
 .target-title {
@@ -34,15 +38,25 @@
   width: 100%;
 }
 
-.target-button-container {
-  margin-top: 30px;
-  justify-content: space-around;
-}
-
 .empty-target-message {
   font-family: $secondary-font;
   font-weight: bold;
   font-size: 1.5em;
   width: 100%;
   text-align: center;
+}
+
+.target-button-container button {
+  @include button-styles;
+  margin: 10px;
+  font-size: 1em;
+  text-shadow: 0 1px 0 black;
+  box-shadow: 0 1px 0 black;
+  color: white;
+  transition-duration: .25s;
+}
+
+.target-button-container button:hover {
+  background-color: $accent-color;
+  color: $hover-text-color;
 }

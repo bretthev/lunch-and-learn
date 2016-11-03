@@ -13,7 +13,7 @@ const Homepage = ({ currentUser, clearTargetProposal }) => {
         <Link to="/AddProposal"
             className="dashboard-link">
           <button>
-            Add new proposal
+            New proposal
           </button>
         </Link>
       </section>
