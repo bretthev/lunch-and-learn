@@ -8,12 +8,14 @@ const TargetProposal = (proposal) => {
       <h2>{proposal.title}</h2>
       <h3>{proposal.author}</h3>
       <p>{proposal.body}</p>
-      <button
-      className="delete-proposal"
-      onClick={e => proposal.deleteProposal(proposal.id)}
-      >
-        Delete
-      </button>
+      <Link to="/Home">
+        <button
+        className="delete-proposal"
+        onClick={e => proposal.deleteProposal(proposal.id)}
+        >
+          Delete
+        </button>
+      </Link>
       <Link to="/EditProposal">
         <button className="edit-proposal">Edit</button>
       </Link>

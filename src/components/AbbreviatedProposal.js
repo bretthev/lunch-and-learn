@@ -4,7 +4,9 @@ import { Link } from 'react-router';
 
 const AbbreviatedProposal = (proposal) => {
   return (
-    <li onClick={e => proposal.grabProposal(proposal)}>
+    <li
+    className="shortened-proposal"
+    onClick={e => proposal.grabProposal(proposal)}>
       <h2>{proposal.title}</h2>
       <h3>{proposal.author}</h3>
     </li>
