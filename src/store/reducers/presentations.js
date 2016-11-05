@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux';
 
 /*
  * Presentation Reducer
@@ -37,7 +37,7 @@ import { combineReducers } from 'redux';
 //       return state;
 //   }
 // };
-//
+
 // /*
 //  * isFetching and isSubmitting are just two flags that I've made so we can
 //  * show some loading icons and disable buttons which would otherwise cause

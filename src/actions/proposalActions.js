@@ -73,5 +73,7 @@ function grabTargetProposal(proposal) {
     }
   }
 
+  
+
 
 export { sendProposalToDatabase, getProposalsFromDatabase, deleteProposal, grabTargetProposal, clearTargetProposal, editProposal }

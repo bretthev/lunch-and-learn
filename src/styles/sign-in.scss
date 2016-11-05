@@ -14,7 +14,7 @@
 }
 
 .signin-title {
-  color: black;
+  color: $main-font-color;
   font-size: 3em;
   font-weight: bold;
   margin-bottom: 50px;
@@ -27,7 +27,7 @@
 
 .login-button {
   @include button-styles;
-  color: white;
+  color: $main-font-color;
   width: 150px;
   height: 50px;
   padding: 10px;

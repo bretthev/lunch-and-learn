@@ -26,10 +26,6 @@
   transition-duration: .25s;
 }
 
-.short-proposal:hover{
-  background-color: $accent-color;
-  color: $hover-text-color;
-}
 
 .active-short-proposal{
   background-color: $accent-color;
@@ -37,10 +33,17 @@
 }
 
 .short-title {
+  color: $secondary-font-color;
   font-family: $primary-font;
   margin-bottom: 10px;
 }
 
 .short-author {
+  color: $secondary-font-color;
   font-family: $secondary-font;
+}
+
+.short-proposal:hover{
+  background-color: $accent-color;
+  color: $hover-text-color;
 }
