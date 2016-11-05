@@ -6,6 +6,7 @@ import SignIn from './containers/SignIn';
 import AddProposal from './containers/AddProposal';
 import EditProposal from './containers/EditProposal';
 import FinalizePresentation from './containers/FinalizePresentation';
+import PresentationList from './containers/PresentationList';
 
 
 const Routes = (props) => (
@@ -16,6 +17,7 @@ const Routes = (props) => (
       <Route path="/AddProposal" component={AddProposal} />
       <Route path="/EditProposal" component={EditProposal} />
       <Route path="/FinalizePresentation" component={FinalizePresentation} />
+      <Route path="/Presentations" component={PresentationList} />
     </Route>
   </Router>
 );
