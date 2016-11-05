@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux';
 
 /*
  * Presentation Reducer
@@ -9,6 +9,16 @@ import { combineReducers } from 'redux';
  * consistency.
  */
 
+ const presentations = ( state = [], action ) => {
+   switch(action.type) {
+      case 'FETCH_PRESENTATIONS_SUCCESS':
+        return action.presentationsWithKeys
+      default: return state
+   }
+ }
+
+ export default presentations
+
 // const allById = (state = {}, action) => {
 //   let nextState;
 //   switch (action.type) {
@@ -18,21 +28,21 @@ import { combineReducers } from 'redux';
 //         nextState[presentation.id] = presentation;
 //       });
 //       return nextState;
-//     case 'JOIN_PRESENTATION_SUCCESS':
-//     case 'LEAVE_PRESENTATION_SUCCESS':
-//       return {
-//         ...state,
-//         [action.id]: action.response,
-//       };
-//     case 'DELETE_PRESENTATION_SUCCESS':
-//       nextState = { ...state };
-//       delete nextState[action.id];
-//       return nextState;
-//     case 'CREATE_PRESENTATION_SUCCESS':
-//       return {
-//         ...state,
-//         [action.response.id]: action.response,
-//       };
+//     // case 'JOIN_PRESENTATION_SUCCESS':
+//     // case 'LEAVE_PRESENTATION_SUCCESS':
+//     //   return {
+//     //     ...state,
+//     //     [action.id]: action.response,
+//     //   };
+//     // case 'DELETE_PRESENTATION_SUCCESS':
+//     //   nextState = { ...state };
+//     //   delete nextState[action.id];
+//     //   return nextState;
+//     // case 'CREATE_PRESENTATION_SUCCESS':
+//     //   return {
+//     //     ...state,
+//     //     [action.response.id]: action.response,
+//     //   };
 //     default:
 //       return state;
 //   }
