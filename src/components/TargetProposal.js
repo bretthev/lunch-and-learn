@@ -22,6 +22,9 @@ const TargetProposal = (proposal) => {
                   >
                   Delete
                   </button>
+                <Link to="/FinalizePresentation">
+                  <button>Finalize</button>
+                </Link>
             </div>
           : <h2 className="empty-target-message">Click a proposal on the left to see more info.</h2>}
     </article>
