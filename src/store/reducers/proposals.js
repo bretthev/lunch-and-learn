@@ -16,6 +16,7 @@ const proposals = ( state = [], action ) => {
 const targetProposal = ( state = {author: '', title: '', body: ''}, action ) => {
   switch(action.type) {
     case 'TARGET_PROPOSAL':
+    case 'INCREMENT_LIKES':
       return Object.assign({}, state, action.proposal)
     case 'CLEAR_TARGET_PROPOSAL':
       return Object.assign({}, state, {title: '', body: '', id: null, author:''})
