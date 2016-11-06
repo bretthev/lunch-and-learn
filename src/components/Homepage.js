@@ -16,6 +16,10 @@ const Homepage = ({ currentUser, clearTargetProposal }) => {
             New proposal
           </button>
         </Link>
+        <Link to="/Presentations"
+          className="dashboard-link">
+          <button>Presentations</button>
+        </Link>
       </section>
     </section>
   )

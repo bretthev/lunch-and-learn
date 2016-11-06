@@ -1,6 +1,6 @@
 import React from 'react';
-import ShortProposal from './ShortProposal';
-import TargetProposal from './TargetProposal';
+import ShortDisplayItem from './ShortDisplayItem';
+import TargetItem from './TargetItem';
 import { map } from 'lodash';
 
 export class ProposalList extends React.Component {
@@ -10,7 +10,7 @@ export class ProposalList extends React.Component {
   };
 
   render() {
-    const displayShortProposals = map(this.props.proposals, (proposal) => {return <ShortProposal key={proposal.key || proposal.timestamp} id={proposal.key} grabProposal={this.props.grabTargetProposal} clearProposal={this.props.clearTargetProposal} {...proposal}/>});
+    const displayShortProposals = map(this.props.proposals, (proposal) => {return <ShortDisplayItem key={proposal.key || proposal.timestamp} id={proposal.key} grabTarget={this.props.grabTargetProposal} clearProposal={this.props.clearTargetProposal} {...proposal}/>});
     if (this.props.proposals.length > 0) {
       return (
         <section className="proposal-list">
@@ -18,7 +18,7 @@ export class ProposalList extends React.Component {
               <ul className="proposal-list-ul">
                 {displayShortProposals}
               </ul>
-              <TargetProposal deleteProposal={this.props.deleteProposal} clearTarget={this.props.clearTargetProposal} {...this.props.targetProposal}/>
+              <TargetItem deleteProposal={this.props.deleteProposal} clearTarget={this.props.clearTargetProposal} {...this.props.targetProposal}/>
           </section>
         </section>
       )
