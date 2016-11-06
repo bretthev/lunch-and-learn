@@ -10,14 +10,14 @@ export default class PresentationList extends React.Component {
   }
 
   render() {
-    const displayPresentations = map(this.props.presentations, (presentation) => {
-      return <ShortDisplayItem key={presentation.key} grabTarget={this.props.grabTargetPresentation}{...presentation} />
+    const displayShortPresentations = map(this.props.presentations, (presentation) => {
+      return <ShortDisplayItem key={presentation.key} id={presentation.key} grabTarget={this.props.grabTargetPresentation}{...presentation} />
     })
     return (
       <section className="proposal-list">
         <section className="proposal-list-container">
-          <ul className="proposal-list-ul"> {displayPresentations} </ul>
-          <TargetItem deletePresentation={this.props.deletePresentation} {...this.props.targetPresentation} />
+          <ul className="proposal-list-ul"> {displayShortPresentations} </ul>
+          <TargetItem deletePresentation={this.props.deletePresentation} updateCounter={this.props.updateRsvps} {...this.props.targetPresentation} />
         </section>
       </section>
     )

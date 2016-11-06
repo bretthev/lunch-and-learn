@@ -18,7 +18,7 @@ export class ProposalList extends React.Component {
               <ul className="proposal-list-ul">
                 {displayShortProposals}
               </ul>
-              <TargetItem deleteProposal={this.props.deleteProposal} addToCount={this.props.incrementLikes} clearTarget={this.props.clearTargetProposal} {...this.props.targetProposal}/>
+              <TargetItem deleteProposal={this.props.deleteProposal} updateCounter={this.props.updateLikes} clearTarget={this.props.clearTargetProposal} {...this.props.targetProposal}/>
           </section>
         </section>
       )
