@@ -1,15 +1,4 @@
-// import { combineReducers } from 'redux';
-
-/*
- * Presentation Reducer
- * This reducer is set up to modularize the properties available.
- * I've really enjoyed the strategy of doing action types as:
- * ACTION_NOUN_STATUS (ex. FETCH_PRESENTATIONS_SUCCESS, CREATE_PRESENTATION_REQUEST)
- * This allows us to quickly scan for which actions are happening and helps
- * consistency.
- */
-
- const presentations = ( state = [], action ) => {
+const presentations = ( state = [], action ) => {
    switch(action.type) {
       case 'FETCH_PRESENTATIONS_SUCCESS':
         return action.presentationsWithKeys
@@ -32,6 +21,18 @@ const getPresentations = (state) => state.presentations
 const getTargetPresentation = (state) => state.targetPresentation
 
 module.exports = { presentations, targetPresentation, getPresentations, getTargetPresentation }
+
+// import { combineReducers } from 'redux';
+
+/*
+ * Presentation Reducer
+ * This reducer is set up to modularize the properties available.
+ * I've really enjoyed the strategy of doing action types as:
+ * ACTION_NOUN_STATUS (ex. FETCH_PRESENTATIONS_SUCCESS, CREATE_PRESENTATION_REQUEST)
+ * This allows us to quickly scan for which actions are happening and helps
+ * consistency.
+ */
+
 // const allById = (state = {}, action) => {
 //   let nextState;
 //   switch (action.type) {

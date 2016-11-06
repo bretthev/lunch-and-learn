@@ -24,4 +24,7 @@ const targetProposal = ( state = {author: '', title: '', body: ''}, action ) => 
   }
 }
 
-module.exports = { targetProposal, proposals }
+const getProposals = (state) => state.proposals
+const getTargetProposal= (state) => state.targetProposal
+
+module.exports = { targetProposal, proposals, getProposals, getTargetProposal };

@@ -4,9 +4,13 @@ import { listenForUser } from '../actions/authActions';
 import { getPresentationsFromDatabase } from '../actions/presentationActions';
 import { bindActionCreators } from 'redux';
 import ProposalList from '../components/ProposalList';
+import { getTargetProposal, getProposals } from '../store/reducers/rootReducer';
+
 
 const mapStateToProps = (state) => {
-  const { proposals, currentUser, targetProposal } = state;
+  const { currentUser } = state;
+  const proposals = getProposals(state);
+  const targetProposal  = getTargetProposal(state);
   return {
     proposals,
     currentUser,
