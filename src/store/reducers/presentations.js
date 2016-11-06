@@ -17,8 +17,20 @@
    }
  }
 
- export default presentations
+ const targetPresentation = ( state = {author: '', title: '', body: '', location: ''}, action ) => {
+   switch(action.type) {
+     case 'TARGET_PRESENTATION':
+       return Object.assign({}, state, action.presentation)
+     case 'CLEAR_TARGET_PRESENTATION':
+       return Object.assign({}, state, {title: '', body: '', id: null, author:'', location:''})
+   default: return state;
+   }
+ }
 
+export const getPresentations = (state) => state.presentations
+const getTargetPresentation = (state) => state.targetPresentation
+
+module.exports = { presentations, targetPresentation, getTargetPresentation }
 // const allById = (state = {}, action) => {
 //   let nextState;
 //   switch (action.type) {

@@ -36,4 +36,21 @@ function getPresentationsFromDatabase() {
   }
 }
 
-export { getPresentationsFromDatabase, addProposalToPresentations }
+function grabTargetPresentation(presentation) {
+  return (dispatch) => {
+    dispatch({
+      type: 'TARGET_PRESENTATION',
+      presentation
+    })
+  }
+}
+
+function clearTargetPresentation() {
+  return (dispatch) => {
+    dispatch({
+      type: 'CLEAR_TARGET_PRESENTATION'
+    })
+  }
+}
+
+export { getPresentationsFromDatabase, addProposalToPresentations, grabTargetPresentation, clearTargetPresentation }

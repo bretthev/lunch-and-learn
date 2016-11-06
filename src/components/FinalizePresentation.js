@@ -18,7 +18,7 @@ const FinalizePresentation = ({ currentUser, addProposalToPresentations, targetP
           <button>Finalize presentation</button>
           </form>
           <Link to="/Presentations">
-          <button>Go to presentations</button>
+            <button>See presentations</button>
         </Link>
     </section>
   )
