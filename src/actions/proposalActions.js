@@ -9,7 +9,8 @@ function sendProposalToDatabase(proposalObject) {
       author: proposalObject.author,
       title: proposalObject.title,
       body: proposalObject.body,
-      timestamp: proposalObject.timestamp
+      timestamp: proposalObject.timestamp,
+      likes: 0
     })
     return (dispatch) => {
       dispatch({
@@ -46,12 +47,12 @@ function deleteProposal(key) {
 }
 
 function editProposal(proposal) {
-  debugger;
   firebase.database().ref(`proposals/${proposal.id}`).set({
     author: proposal.author,
     title: proposal.title,
     body: proposal.body,
-    timestamp: proposal.timestamp
+    timestamp: proposal.timestamp,
+    likes: proposal.likes
   })
   return (dispatch) => {
     dispatch({
@@ -73,5 +74,22 @@ function grabTargetProposal(proposal) {
     }
   }
 
+  function incrementLikes(item) {
+    let proposal = {author: item.author,
+    title: item.title,
+    body: item.body,
+    timestamp: item.timestamp,
+    likes: item.likes + 1}
+    firebase.database().ref(`proposals/${item.id}`).set({
+      author: proposal.author, body: proposal.body, title: proposal.title, timestamp: proposal.timestamp, likes: proposal.likes
+    })
+      return (dispatch) => {
+        dispatch({
+          type: 'INCREMENT_LIKES', proposal
+        })
+    }
+    getProposalsFromDatabase();
+  }
 
-export { sendProposalToDatabase, getProposalsFromDatabase, deleteProposal, grabTargetProposal, clearTargetProposal, editProposal }
+
+export { sendProposalToDatabase, getProposalsFromDatabase, deleteProposal, grabTargetProposal, clearTargetProposal, editProposal, incrementLikes }
