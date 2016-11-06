@@ -28,6 +28,7 @@
  }
 
 export const getPresentations = (state) => state.presentations
+
 const getTargetPresentation = (state) => state.targetPresentation
 
 module.exports = { presentations, targetPresentation, getTargetPresentation }
