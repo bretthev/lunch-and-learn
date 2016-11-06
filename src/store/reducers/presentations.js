@@ -20,6 +20,7 @@
  const targetPresentation = ( state = {author: '', title: '', body: '', location: ''}, action ) => {
    switch(action.type) {
      case 'TARGET_PRESENTATION':
+     case 'UPDATE_RSVPS':
        return Object.assign({}, state, action.presentation)
      case 'CLEAR_TARGET_PRESENTATION':
        return Object.assign({}, state, {title: '', body: '', id: null, author:'', location:''})
@@ -27,11 +28,10 @@
    }
  }
 
-export const getPresentations = (state) => state.presentations
-
+const getPresentations = (state) => state.presentations
 const getTargetPresentation = (state) => state.targetPresentation
 
-module.exports = { presentations, targetPresentation, getTargetPresentation }
+module.exports = { presentations, targetPresentation, getPresentations, getTargetPresentation }
 // const allById = (state = {}, action) => {
 //   let nextState;
 //   switch (action.type) {

@@ -10,7 +10,8 @@ function addProposalToPresentations(proposal) {
     title: proposal.title,
     location: proposal.location,
     body: proposal.body,
-    timestamp: proposal.timestamp
+    timestamp: proposal.timestamp,
+    rsvps: 0
   })
   return (dispatch) => {
     dispatch({
@@ -53,4 +54,23 @@ function clearTargetPresentation() {
   }
 }
 
-export { getPresentationsFromDatabase, addProposalToPresentations, grabTargetPresentation, clearTargetPresentation }
+function updateRsvps(item, number) {
+  let presentation = {author: item.author,
+  title: item.title,
+  body: item.body,
+  timestamp: item.timestamp,
+  location: item.location,
+  rsvps: item.rsvps + number}
+  firebase.database().ref(`presentations/${item.id}`).update({
+    rsvps: presentation.rsvps
+  })
+    return (dispatch) => {
+      dispatch({
+        type: 'UPDATE_RSVPS',
+        presentation
+      })
+  }
+  getPresentationsFromDatabase();
+}
+
+export { getPresentationsFromDatabase, addProposalToPresentations, grabTargetPresentation, clearTargetPresentation, updateRsvps }

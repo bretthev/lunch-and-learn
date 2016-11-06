@@ -74,14 +74,14 @@ function grabTargetProposal(proposal) {
     }
   }
 
-  function incrementLikes(item) {
+  function updateLikes(item, number) {
     let proposal = {author: item.author,
     title: item.title,
     body: item.body,
     timestamp: item.timestamp,
-    likes: item.likes + 1}
-    firebase.database().ref(`proposals/${item.id}`).set({
-      author: proposal.author, body: proposal.body, title: proposal.title, timestamp: proposal.timestamp, likes: proposal.likes
+    likes: item.likes + number}
+    firebase.database().ref(`proposals/${item.id}`).update({
+      likes: proposal.likes
     })
       return (dispatch) => {
         dispatch({
@@ -92,4 +92,4 @@ function grabTargetProposal(proposal) {
   }
 
 
-export { sendProposalToDatabase, getProposalsFromDatabase, deleteProposal, grabTargetProposal, clearTargetProposal, editProposal, incrementLikes }
+export { sendProposalToDatabase, getProposalsFromDatabase, deleteProposal, grabTargetProposal, clearTargetProposal, editProposal, updateLikes }

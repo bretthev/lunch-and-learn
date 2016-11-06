@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 import currentUser from './currentUser';
 import { proposals, targetProposal } from './proposals';
-import { presentations, targetPresentation } from './presentations';
-import * as fromPresentations from './presentations';
+import { presentations, targetPresentation, getTargetPresentation, getPresentations } from './presentations';
 
 
 const rootReducer = combineReducers({
@@ -15,4 +14,6 @@ const rootReducer = combineReducers({
 
 export default rootReducer;
 
-export const getTargetPresentation = (state) => fromPresentations.getTargetPresentation(state);
+
+export const getTargetPresentationState = (state) => getTargetPresentation(state);
+export const getPresentationsState = (state) => getPresentations(state);
