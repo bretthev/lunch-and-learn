@@ -29,11 +29,11 @@ const signIn = () => {
 
 const addToUserList = (user) => {
     userList.push({
-    uid: user.uid,
-    username: user.displayName,
-    email: user.email,
-    isAdmin: false
-  })
+      uid: user.uid,
+      username: user.displayName,
+      email: user.email,
+      isAdmin: false
+    })
   return (dispatch) => {
     dispatch({
       type: 'ADD_USER'
@@ -57,6 +57,7 @@ const listenForUser = () => {
 }
 
 const getUsersFromDatabase = () => {
+  console.log('firing')
   return (dispatch, getState) => {
     let users;
     userList.on('value', (snapshot) => {

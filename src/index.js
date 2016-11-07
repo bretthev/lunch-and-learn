@@ -5,7 +5,7 @@ import Routes from './router.js';
 import { browserHistory } from 'react-router';
 import store from './store/storeIndex';
 import firebase from 'firebase';
-import { listenForUser } from './actions/userActions';
+import { listenForUser, getUsersFromDatabase } from './actions/userActions';
 require("./styles/style-index.scss");
 
 
