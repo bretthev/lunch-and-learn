@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import Routes from './router.js';
 import { browserHistory } from 'react-router';
 import store from './store/storeIndex';
+import firebase from 'firebase';
+import { listenForUser } from './actions/userActions';
 require("./styles/style-index.scss");
 
 
@@ -14,3 +16,5 @@ render(
   </Provider>,
   document.getElementById('root')
 )
+
+store.dispatch(listenForUser())
