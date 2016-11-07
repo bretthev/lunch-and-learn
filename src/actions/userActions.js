@@ -23,13 +23,8 @@ const signIn = () => {
         email: currentUserData.user.email
       });
       addToUserList(currentUserData.user);
-      saveUserToStorage({ uid: currentUserData.user.uid, email: currentUserData.user.email, username: currentUserData.user.displayName})
     })
   }
-}
-
-const saveUserToStorage = (user) => {
-  localStorage.setItem('returningUser', JSON.stringify({uid: user.uid, email: user.email, username: user.username}))
 }
 
 const addToUserList = (user) => {
