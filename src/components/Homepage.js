@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 export class Homepage extends React.Component {
 
   componentWillMount () {
-    this.props.getUsersFromDatabase()
+    this.props.getUsersFromDatabase(this.props.currentUser.uid)
   }
 
   render() {

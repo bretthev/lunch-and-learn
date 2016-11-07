@@ -32,7 +32,10 @@ const addToUserList = (user) => {
       uid: user.uid,
       username: user.displayName,
       email: user.email,
-      isAdmin: false
+      isAdmin: false,
+      proposalLikes: 0,
+      presentationRsvps: 0,
+      group: null
     })
   return (dispatch) => {
     dispatch({
@@ -57,7 +60,6 @@ const listenForUser = () => {
 }
 
 const getUsersFromDatabase = () => {
-  console.log('firing')
   return (dispatch, getState) => {
     let users;
     userList.on('value', (snapshot) => {
@@ -73,7 +75,16 @@ const getUsersFromDatabase = () => {
   }
 }
 
+const findCurrentUserInList = (uid, users) => {
+  let completeUser = map(users, (u) => { u.uid === uid} )
+  return (dispatch) => {
+    dispatch({
+    type: 'UPDATE_CURRENT_USER',
+    completeUser})
+  }
+}
 
 
 
-export { firebaseApp, signIn, getUsersFromDatabase, listenForUser };
+
+export { firebaseApp, signIn, getUsersFromDatabase, listenForUser, findCurrentUserInList };

@@ -5,7 +5,7 @@ import { map } from 'lodash';
 
 export class ProposalList extends React.Component {
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getProposalsFromDatabase();
   };
 
