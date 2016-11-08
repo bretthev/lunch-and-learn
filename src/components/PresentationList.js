@@ -9,6 +9,14 @@ export default class PresentationList extends React.Component {
     this.props.getPresentationsFromDatabase()
   }
 
+  renderTargetItem() {
+    return (
+      this.props.targetPresentation.title === '' ?
+      <h2 className="empty-target-message target-item">Click an item on the left to see more.</h2>
+      :
+      <TargetItem deleteProposal={this.props.deletePresentation} updateCounter={this.props.updateRsvps} clearTarget={this.props.clearTargetPresentation} uid={this.props.currentUser.uid} {...this.props.targetPresentation}/>    )
+  }
+
   render() {
     const displayShortPresentations = map(this.props.presentations, (presentation) => {
       return <ShortDisplayItem key={presentation.key} id={presentation.key} grabTarget={this.props.grabTargetPresentation}{...presentation} />
@@ -17,7 +25,7 @@ export default class PresentationList extends React.Component {
       <section className="proposal-list">
         <section className="proposal-list-container">
           <ul className="proposal-list-ul"> {displayShortPresentations} </ul>
-          <TargetItem isPresentation deletePresentation={this.props.deletePresentation} updateCounter={this.props.updateRsvps} {...this.props.targetPresentation} />
+          {this.renderTargetItem()}
         </section>
       </section>
     )

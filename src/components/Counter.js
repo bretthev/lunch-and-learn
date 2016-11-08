@@ -1,14 +1,23 @@
 import React from 'react';
 
 const Counter = (item) => {
+  console.log(item.uid, item.isPresentation)
   const hasLiked = item.isPresentation ? false : item.likedBy.includes(item.uid);
-  let counterChange = hasLiked ? -1 : 1
+  const hasRsvpd = item.isPresentation ? item.rsvpList.includes(item.uid) : false;
+  let counterChange;
+  if (item.isPresentation) {
+    counterChange = hasRsvpd ? -1 : 1;
+  } else {
+    counterChange = hasLiked ? -1 : 1;
+  }
+
   let buttonText;
   if (item.isPresentation) {
-   buttonText = hasLiked ? "Cancel RSVP" : "RSVP";
+    buttonText = hasRsvpd ? "Cancel RSVP" : "RSVP";
     } else {
        buttonText = hasLiked ? "Unlike" : "Like";
   }
+
   const buttonElement = <button onClick={e => {item.updateCounter(item, counterChange, item.uid)}}>{buttonText}</button>
 
 

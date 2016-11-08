@@ -4,14 +4,16 @@ import { map, extend } from 'lodash';
 
 const presentationsDatabase = firebase.database().ref('presentations');
 
-function addProposalToPresentations(proposal) {
+const addProposalToPresentations = (proposal) => {
   presentationsDatabase.push({
     author: proposal.author,
     title: proposal.title,
     location: proposal.location,
     body: proposal.body,
+    isPresentation: true,
     timestamp: proposal.timestamp,
-    rsvps: 0
+    rsvps: 0,
+    rsvpList: ['default']
   })
   return (dispatch) => {
     dispatch({
@@ -21,7 +23,7 @@ function addProposalToPresentations(proposal) {
 }
 
 
-function getPresentationsFromDatabase() {
+const getPresentationsFromDatabase = () => {
   return (dispatch, getState) => {
     let presentations;
     presentationsDatabase.on('value', (snapshot) => {
@@ -37,7 +39,7 @@ function getPresentationsFromDatabase() {
   }
 }
 
-function grabTargetPresentation(presentation) {
+const grabTargetPresentation = (presentation) => {
   return (dispatch) => {
     dispatch({
       type: 'TARGET_PRESENTATION',
@@ -46,7 +48,7 @@ function grabTargetPresentation(presentation) {
   }
 }
 
-function clearTargetPresentation() {
+const clearTargetPresentation = () => {
   return (dispatch) => {
     dispatch({
       type: 'CLEAR_TARGET_PRESENTATION'
@@ -54,23 +56,29 @@ function clearTargetPresentation() {
   }
 }
 
-function updateRsvps(item, number) {
-  let presentation = {author: item.author,
-  title: item.title,
-  body: item.body,
-  timestamp: item.timestamp,
-  location: item.location,
-  rsvps: item.rsvps + number}
-  firebase.database().ref(`presentations/${item.id}`).update({
-    rsvps: presentation.rsvps
-  })
-    return (dispatch) => {
-      dispatch({
-        type: 'UPDATE_RSVPS',
-        presentation
-      })
-  }
-  getPresentationsFromDatabase();
+const updatePresentationInFirebase = (id, newRsvps, newRsvpList) => {
+  firebase.database().ref(`presentations/${id}`).update({ rsvps: newRsvps, rsvpList: newRsvpList })
 }
+
+const checkIfUserHasRsvpd = (rsvpdArray, number, uid) => {
+  const filterForRepeatRsvps = (rsvdList) => rsvdList !== uid
+  let filteredRsvpArray = rsvpdArray.filter(filterForRepeatRsvps)
+  if (number === 1) { filteredRsvpArray = filteredRsvpArray.concat(uid)}
+  return filteredRsvpArray;
+}
+
+const updateRsvps = (item, number, uid) => {
+  let rsvpdListArray = checkIfUserHasRsvpd(item.rsvpList, number, uid)
+  const presentation = Object.assign({}, item, { rsvps: item.rsvps + number, rsvpList: rsvpdListArray})
+  updatePresentationInFirebase(item.id, presentation.rsvps, presentation.rsvpList)
+  return (dispatch) => {
+    dispatch({
+      type: 'UPDATE_RSVPS',
+      presentation
+    })
+  }
+  getPresentationsFromFirebase()
+}
+
 
 export { getPresentationsFromDatabase, addProposalToPresentations, grabTargetPresentation, clearTargetPresentation, updateRsvps }

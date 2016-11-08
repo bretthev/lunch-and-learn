@@ -10,6 +10,7 @@ const TargetItem = (item) => {
     <Link to="/FinalizePresentation">
       <button>Finalize</button>
     </Link>) : null;
+    
   return (
     <article className="target-item">
       <h2 className="target-title">{item.title}</h2>

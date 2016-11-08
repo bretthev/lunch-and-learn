@@ -6,13 +6,13 @@ const presentations = ( state = [], action ) => {
    }
  }
 
- const targetPresentation = ( state = {author: '', title: '', body: '', location: ''}, action ) => {
+ const targetPresentation = ( state = {author: '', title: '', body: '', location: '', rsvps: 0, rsvpList: ['default']}, action ) => {
    switch(action.type) {
      case 'TARGET_PRESENTATION':
      case 'UPDATE_RSVPS':
        return Object.assign({}, state, action.presentation)
      case 'CLEAR_TARGET_PRESENTATION':
-       return Object.assign({}, state, {title: '', body: '', id: null, author:'', location:''})
+       return Object.assign({}, state, {title: '', body: '', id: null, author:'', location:'', rsvps: 0, rsvpList: ['default']})
    default: return state;
    }
  }
