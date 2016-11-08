@@ -1,0 +1,28 @@
+.Navigation {
+  background-color: #fff;
+  font-family: $primary-font;
+  width: 100%;
+  .username {
+    padding: 8px;
+    float: right;
+  }
+  .nav-link {
+    float: left;
+    padding: 8px;
+    text-decoration: none;
+    color: $secondary-font-color;
+    border-top: 2px transparent solid;
+    &.current-link {
+      color: $primary-color;
+      border-top-color: $primary-color;
+    }
+  }
+  .logout-btn {
+    border: none;
+    background: none;
+    color: $primary-color;
+    padding: 0 4px;
+    margin: 0;
+    cursor: pointer;
+  }
+}

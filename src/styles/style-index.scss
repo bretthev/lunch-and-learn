@@ -5,11 +5,16 @@
 @import 'proposal-list';
 @import 'target';
 @import 'dashboard';
+@import 'navigation';
 
 
 body, html, #root, .App {
   display: flex;
+  flex-direction: column;
   background-color: $primary-color;
   height: 100%;
   width: 100%;
+}
+.App-Body {
+  padding-top: 20px;
 }
