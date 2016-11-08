@@ -3,6 +3,8 @@ import ProposalList from './ProposalList';
 import { Link } from 'react-router';
 
 const TargetItem = (item) => {
+  let counterObject = { counterChange: 1, buttonText: 'Like' };
+  if (item.likedBy && item.likedBy.includes(item.uid)) { counterObject = { counterChange: -1, buttonText: 'Unlike'}}
   const finalizeButton = !item.isPresentation ? (
     <Link to="/FinalizePresentation">
       <button>Finalize</button>
@@ -17,7 +19,7 @@ const TargetItem = (item) => {
       { item.likes >= 0 && item.title !== '' ?
         <section className="counter-container">
           <h4>Likes: {item.likes}</h4>
-          <button onClick={e => {item.updateCounter(item, 1)}}>Like</button>
+          <button onClick={e => {item.updateCounter(item, counterObject.counterChange, item.uid)}}>{counterObject.buttonText}</button>
         </section>
         : ''
       }

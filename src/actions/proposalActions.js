@@ -10,13 +10,13 @@ function sendProposalToDatabase(proposalObject) {
       title: proposalObject.title,
       body: proposalObject.body,
       timestamp: proposalObject.timestamp,
-      likes: 0
+      likes: 0,
+      likedBy: ['defaultLike']
     })
     return (dispatch) => {
       dispatch({
-        type: 'ADD_PROPOSAL',
-        proposalObject
-      })
+        type: 'ADD_PROPOSAL'
+        })
     }
 }
 
@@ -52,7 +52,8 @@ function editProposal(proposal) {
     title: proposal.title,
     body: proposal.body,
     timestamp: proposal.timestamp,
-    likes: proposal.likes
+    likes: proposal.likes,
+    likedBy: proposal.likedBy,
   })
   return (dispatch) => {
     dispatch({
@@ -74,13 +75,19 @@ function grabTargetProposal(proposal) {
     }
   }
 
-  function updateLikes(item, number, user) {
-    let proposal = {author: item.author,
-    title: item.title,
-    body: item.body,
-    timestamp: item.timestamp,
-    likes: item.likes + number,
-    likedBy: item.likedBy.push(user.uid)}
+  function updateLikes(item, number, uid) {
+    const filterForRepeatLikes = (likedIds) => likedIds !== uid
+    let likedByArray = item.likedBy.filter(filterForRepeatLikes)
+    if (number === 1) { likedByArray = likedByArray.concat(uid) }
+    debugger;
+    let proposal = {
+      author: item.author,
+      title: item.title,
+      body: item.body,
+      timestamp: item.timestamp,
+      likes: item.likes + number,
+      likedBy: likedByArray
+    }
     firebase.database().ref(`proposals/${item.id}`).update({
       likes: proposal.likes,
       likedBy: proposal.likedBy

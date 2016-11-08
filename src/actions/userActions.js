@@ -33,7 +33,9 @@ const addToUserList = (user) => {
       uid: user.uid,
       username: user.displayName,
       email: user.email,
-      isAdmin: false
+      isAdmin: false,
+      proposalsLiked: [],
+      rsvps: []
     })
   return (dispatch) => {
     dispatch({
