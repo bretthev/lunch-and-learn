@@ -17,7 +17,7 @@ export default class PresentationList extends React.Component {
       <section className="proposal-list">
         <section className="proposal-list-container">
           <ul className="proposal-list-ul"> {displayShortPresentations} </ul>
-          <TargetItem deletePresentation={this.props.deletePresentation} updateCounter={this.props.updateRsvps} {...this.props.targetPresentation} />
+          <TargetItem isPresentation deletePresentation={this.props.deletePresentation} updateCounter={this.props.updateRsvps} {...this.props.targetPresentation} />
         </section>
       </section>
     )
