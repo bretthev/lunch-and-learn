@@ -57,8 +57,7 @@ const listenForUser = () => {
   }
 }
 
-const getUsersFromDatabase = (uid) => {
-  console.log(uid)
+const getUsersFromDatabase = () => {
   return (dispatch, getState) => {
     let users;
     userList.on('value', (snapshot) => {
@@ -70,16 +69,10 @@ const getUsersFromDatabase = (uid) => {
         type: 'GET_USERS_FROM_DATABASE',
         usersWithKeys
       })
-      findCurrentUserInList(uid, usersWithKeys)
     })
   }
 }
 
-const findCurrentUserInList = (uid, users) => {
-    let completeUser = map(users, (u) => { return u.uid === uid} )
-    console.log(completeUser)
-    return completeUser;
-}
 
 const logoutUser = () => (dispatch) =>
   dispatch({
@@ -89,7 +82,7 @@ const logoutUser = () => (dispatch) =>
 
 
 
-export { firebaseApp, signIn, getUsersFromDatabase, listenForUser, logoutUser, findCurrentUserInList };
+export { firebaseApp, signIn, getUsersFromDatabase, listenForUser, logoutUser };
 
 export const getIsUserSignedIn = (state) =>
   fromReducer.getIsUserSignedIn(state.currentUser);
