@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { getProposalsFromDatabase, deleteProposal, grabTargetProposal, clearTargetProposal, updateLikes } from '../actions/proposalActions';
-import { listenForUser } from '../actions/authActions';
 import { getPresentationsFromDatabase } from '../actions/presentationActions';
 import { bindActionCreators } from 'redux';
 import ProposalList from '../components/ProposalList';

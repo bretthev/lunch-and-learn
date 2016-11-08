@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import firebaseApp from './authActions';
+import firebaseApp from './userActions';
 import { map, extend } from 'lodash';
 
 const presentationsDatabase = firebase.database().ref('presentations');

@@ -12,7 +12,7 @@ import PresentationList from './containers/PresentationList';
 const Routes = (props) => (
   <Router {...props}>
     <Route path="/" component={App}>
-      <IndexRoute component={SignIn} />
+      <IndexRoute component={Homepage} />
       <Route path="/Home" component={Homepage} />
       <Route path="/AddProposal" component={AddProposal} />
       <Route path="/EditProposal" component={EditProposal} />
