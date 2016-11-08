@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 export class Homepage extends React.Component {
 
   componentWillMount () {
-    this.props.getUsersFromDatabase()
+    this.props.getUsersFromDatabase(this.props.currentUser.uid)
   }
 
   render() {
@@ -16,21 +16,9 @@ export class Homepage extends React.Component {
         <section className="homepage">
           <h1 className="homepage-title"> Hello {this.props.currentUser.username}! </h1>
           <ProposalList />
-          <section className="dashboard">
-            <Link to="/AddProposal"
-                className="dashboard-link">
-              <button>
-                New proposal
-              </button>
-            </Link>
-            <Link to="/Presentations"
-              className="dashboard-link">
-              <button>Presentations</button>
-            </Link>
-          </section>
         </section>
-
-        : <SignIn/> }
+        :
+        <SignIn/> }
         </section>
     )
   }

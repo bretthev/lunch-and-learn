@@ -19,7 +19,7 @@ class App extends Component {
   }
   renderChildren() {
     return this.props.isUserSignedIn ? this.props.children :
-      (<div>Signing in</div>);
+      (<SignIn />);
   }
   renderUsername() {
     return this.props.isUserSignedIn ? this.props.currentUser.username : 'Logged Out';
@@ -28,7 +28,6 @@ class App extends Component {
     this.props.logoutUser();
   }
   render() {
-    console.log('rendering the user');
     return (
       <div className="App">
         <div className="Navigation">

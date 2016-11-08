@@ -6,6 +6,8 @@ const currentUser = ( state = {}, action ) => {
         username: action.username,
         email: action.email
       });
+    // case "GET_USERS_FROM_DATABASE":
+    //   return action.completeUser;
     case "USER_LOGGED_IN":
       return state;
     case "ANONYMOUS":

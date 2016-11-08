@@ -74,18 +74,20 @@ function grabTargetProposal(proposal) {
     }
   }
 
-  function updateLikes(item, number) {
+  function updateLikes(item, number, user) {
     let proposal = {author: item.author,
     title: item.title,
     body: item.body,
     timestamp: item.timestamp,
-    likes: item.likes + number}
+    likes: item.likes + number,
+    likedBy: item.likedBy.push(user.uid)}
     firebase.database().ref(`proposals/${item.id}`).update({
-      likes: proposal.likes
+      likes: proposal.likes,
+      likedBy: proposal.likedBy
     })
       return (dispatch) => {
         dispatch({
-          type: 'INCREMENT_LIKES', proposal
+          type: 'UPDATE_LIKES', proposal
         })
     }
     getProposalsFromDatabase();
