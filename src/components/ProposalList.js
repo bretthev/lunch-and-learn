@@ -9,16 +9,30 @@ export class ProposalList extends React.Component {
     this.props.getProposalsFromDatabase();
   };
 
+  renderTargetItem() {
+    return (
+      this.props.targetProposal.title === '' ?
+      <h2 className="empty-target-message target-item">Click an item to the left to see more info.</h2>
+      :
+      <TargetItem deleteProposal={this.props.deleteProposal} updateCounter={this.props.updateLikes} clearTarget={this.props.clearTargetProposal} uid={this.props.currentUser.uid} {...this.props.targetProposal}/>
+    )
+  }
+
+  displayShortProposals() {
+    return (
+      map(this.props.proposals, (proposal) => {return <ShortDisplayItem key={proposal.key || proposal.timestamp} id={proposal.key} grabTarget={this.props.grabTargetProposal} clearProposal={this.props.clearTargetProposal} {...proposal}/>})
+    )
+  }
+
   render() {
-    const displayShortProposals = map(this.props.proposals, (proposal) => {return <ShortDisplayItem key={proposal.key || proposal.timestamp} id={proposal.key} grabTarget={this.props.grabTargetProposal} clearProposal={this.props.clearTargetProposal} {...proposal}/>});
     if (this.props.proposals.length > 0) {
       return (
         <section className="proposal-list">
           <section className="proposal-list-container">
               <ul className="proposal-list-ul">
-                {displayShortProposals}
+                {this.displayShortProposals()}
               </ul>
-              <TargetItem deleteProposal={this.props.deleteProposal} updateCounter={this.props.updateLikes} clearTarget={this.props.clearTargetProposal} uid={this.props.currentUser.uid} {...this.props.targetProposal}/>
+          {this.renderTargetItem()}
           </section>
         </section>
       )

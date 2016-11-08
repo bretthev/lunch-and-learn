@@ -4,7 +4,7 @@ import { map, extend } from 'lodash';
 
 const proposalsDatabase = firebase.database().ref('proposals');
 
-function sendProposalToDatabase(proposalObject) {
+const sendProposalToDatabase = (proposalObject) => {
     proposalsDatabase.push({
       author: proposalObject.author,
       title: proposalObject.title,
@@ -20,7 +20,7 @@ function sendProposalToDatabase(proposalObject) {
     }
 }
 
-function getProposalsFromDatabase() {
+const getProposalsFromDatabase = () => {
   return (dispatch, getState) => {
     let proposals;
     proposalsDatabase.on('value', (snapshot) => {
@@ -36,7 +36,7 @@ function getProposalsFromDatabase() {
   }
 }
 
-function deleteProposal(key) {
+const deleteProposal = (key) => {
   firebase.database().ref(`proposals/${key}`).remove();
   return (dispatch, getState) => {
     dispatch({
@@ -46,7 +46,7 @@ function deleteProposal(key) {
   }
 }
 
-function editProposal(proposal) {
+const editProposal = (proposal) => {
   firebase.database().ref(`proposals/${proposal.id}`).set({
     author: proposal.author,
     title: proposal.title,
@@ -62,36 +62,34 @@ function editProposal(proposal) {
   }
 }
 
-function grabTargetProposal(proposal) {
+const grabTargetProposal = (proposal) => {
   return (dispatch) => {
     dispatch({type: 'TARGET_PROPOSAL',
     proposal})
   }
 }
 
-  function clearTargetProposal() {
+  const clearTargetProposal = () => {
     return (dispatch) => {
       dispatch({type: 'CLEAR_TARGET_PROPOSAL'})
     }
   }
 
-  function updateLikes(item, number, uid) {
+  const updateProposalInFirebase = (id, newLikes, newLikedBy) => {
+    firebase.database().ref(`proposals/${id}`).update({ likes: newLikes, likedBy: newLikedBy})
+  }
+
+  const checkIfUserHasLikedProposal = (likedByArray, number, uid) => {
     const filterForRepeatLikes = (likedIds) => likedIds !== uid
-    let likedByArray = item.likedBy.filter(filterForRepeatLikes)
-    if (number === 1) { likedByArray = likedByArray.concat(uid) }
-    debugger;
-    let proposal = {
-      author: item.author,
-      title: item.title,
-      body: item.body,
-      timestamp: item.timestamp,
-      likes: item.likes + number,
-      likedBy: likedByArray
-    }
-    firebase.database().ref(`proposals/${item.id}`).update({
-      likes: proposal.likes,
-      likedBy: proposal.likedBy
-    })
+    let filteredArray = likedByArray.filter(filterForRepeatLikes)
+    if (number === 1 ) { filteredArray = filteredArray.concat(uid) }
+    return filteredArray
+  }
+
+  const updateLikes = (item, number, uid) => {
+    let likedByArray = checkIfUserHasLikedProposal(item.likedBy, number, uid)
+    const proposal = Object.assign({}, item, { likes: item.likes + number, likedBy: likedByArray} )
+    updateProposalInFirebase(item.id, proposal.likes, proposal.likedBy)
       return (dispatch) => {
         dispatch({
           type: 'UPDATE_LIKES', proposal

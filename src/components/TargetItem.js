@@ -1,6 +1,7 @@
 import React from 'react';
 import ProposalList from './ProposalList';
 import { Link } from 'react-router';
+import Counter from './Counter';
 
 const TargetItem = (item) => {
   let counterObject = { counterChange: 1, buttonText: 'Like' };
@@ -16,23 +17,8 @@ const TargetItem = (item) => {
       <h3 className="target-author">{item.author}</h3>
       <p className="target-body">{item.body}</p>
 
-      { item.likes >= 0 && item.title !== '' ?
-        <section className="counter-container">
-          <h4>Likes: {item.likes}</h4>
-          <button onClick={e => {item.updateCounter(item, counterObject.counterChange, item.uid)}}>{counterObject.buttonText}</button>
-        </section>
-        : ''
-      }
+      <Counter {...item} />
 
-      { item.rsvps >= 0 && item.title !== '' ?
-        <section className="counter-container">
-          <h4>RSVPs: {item.rsvps}</h4>
-          <button onClick={e => {item.updateCounter(item, 1)}}>RSVP</button>
-        </section>
-        : ''
-      }
-
-      {item.title !== '' ?
         <div className="target-button-container">
           <Link to="/EditProposal">
             <button className="edit-item-button">
@@ -48,7 +34,6 @@ const TargetItem = (item) => {
           </button>
           {finalizeButton}
             </div>
-          : <h2 className="empty-target-message">Click an item on the left to see more info.</h2>}
 
     </article>
   )
