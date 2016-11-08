@@ -10,6 +10,8 @@ const currentUser = ( state = {}, action ) => {
       return state;
     case "ANONYMOUS":
       return state;
+    case "USER_LOGGED_OUT":
+      return {};
     default:
       return state;
   }
@@ -17,3 +19,5 @@ const currentUser = ( state = {}, action ) => {
 
 
 export default currentUser;
+
+export const getIsUserSignedIn = (state) => Boolean(state.email);

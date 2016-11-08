@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { map, extend } from 'lodash';
+import * as fromReducer from '../store/reducers/currentUser';
 
 const firebaseApp = firebase.initializeApp({
     apiKey: "AIzaSyDT87l_Lyz_zIyXHejRXapIEHZYWSEOTxU",
@@ -72,7 +73,15 @@ const getUsersFromDatabase = () => {
   }
 }
 
+const logoutUser = () => (dispatch) =>
+  dispatch({
+    type: 'USER_LOGGED_OUT',
+  });
 
 
 
-export { firebaseApp, signIn, getUsersFromDatabase, listenForUser };
+
+export { firebaseApp, signIn, getUsersFromDatabase, listenForUser, logoutUser };
+
+export const getIsUserSignedIn = (state) =>
+  fromReducer.getIsUserSignedIn(state.currentUser);
