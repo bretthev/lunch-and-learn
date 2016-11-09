@@ -6,6 +6,9 @@ const currentUser = ( state = {}, action ) => {
         username: action.username,
         email: action.email
       });
+      case "GET_USERS_FROM_DATABASE":
+       let completeUser = action.usersWithKeys.filter(function(user) { return user.uid === state.uid })
+       return completeUser[0];
     case "USER_LOGGED_IN":
       return state;
     case "ANONYMOUS":

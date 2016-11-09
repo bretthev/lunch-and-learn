@@ -4,13 +4,16 @@ import { proposals, targetProposal } from './proposals';
 import * as fromProposals from './proposals';
 import { presentations, targetPresentation } from './presentations';
 import * as fromPresentations from './presentations';
+import { users } from './users';
+import * as fromUsers from './users';
 
 const rootReducer = combineReducers({
   currentUser,
   proposals,
   targetProposal,
   presentations,
-  targetPresentation
+  targetPresentation,
+  users
 });
 
 export default rootReducer;
@@ -20,3 +23,5 @@ export const getTargetProposal = (state) => fromProposals.getTargetProposal(stat
 
 export const getPresentations = (state) => fromPresentations.getPresentations(state);
 export const getTargetPresentation= (state) => fromPresentations.getTargetPresentation(state);
+
+export const getUsers = (state) => fromUsers.getUsers(state);

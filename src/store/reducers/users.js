@@ -8,4 +8,6 @@ const users = ( state = [], action ) => {
   }
 }
 
-export default users
+const getUsers = (state) => state.users
+
+module.exports = { users, getUsers }

@@ -12,7 +12,7 @@ const ProposalForm = ({currentUser, submitProposal, targetProposal, buttonText})
       <form className="add-proposal-form"
         onSubmit={ (e) => {
           e.preventDefault()
-          submitProposal({author: currentUser.username, title: proposalTitle.value, body: proposalBody.value, timestamp: Date.now(), id: targetProposal.id })
+          submitProposal({author: currentUser.username, title: proposalTitle.value, body: proposalBody.value, timestamp: Date.now(), id: targetProposal.id,  })
           proposalTitle.value='';
           proposalBody.value='';
         }}>

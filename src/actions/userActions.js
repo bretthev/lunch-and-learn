@@ -30,11 +30,13 @@ const signIn = () => {
 
 const addToUserList = (user) => {
     userList.push({
-    uid: user.uid,
-    username: user.displayName,
-    email: user.email,
-    isAdmin: false
-  })
+      uid: user.uid,
+      username: user.displayName,
+      email: user.email,
+      isAdmin: false,
+      proposalsLiked: [],
+      rsvps: []
+    })
   return (dispatch) => {
     dispatch({
       type: 'ADD_USER'
@@ -72,6 +74,7 @@ const getUsersFromDatabase = () => {
     })
   }
 }
+
 
 const logoutUser = () => (dispatch) =>
   dispatch({
