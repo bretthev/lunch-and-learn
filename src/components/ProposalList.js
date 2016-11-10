@@ -10,6 +10,7 @@ export class ProposalList extends React.Component {
   componentWillMount() {
     this.props.getProposalsFromDatabase();
     this.props.getPresentationsFromDatabase();
+    this.props.getUsersFromDatabase();
   };
 
   renderTargetItem() {

@@ -4,6 +4,8 @@ import Navigation from '../containers/Navigation';
 
 const FinalizePresentation = ({ currentUser, addProposalToPresentations, targetProposal }) => {
   let presentationLocation;
+  let isDisabled = true;
+
   return (
     <section className="finalize-presentation-container">
       <section className="finalize-presentation">
@@ -17,10 +19,12 @@ const FinalizePresentation = ({ currentUser, addProposalToPresentations, targetP
           addProposalToPresentations({author: targetProposal.author, title: targetProposal.title, body: targetProposal.body, timestamp: Date.now(), location: presentationLocation.value})
         }}>
           <input placeholder="Add a location" className="location-input" ref={node => { presentationLocation = node }}/>
-          <button className="finalize-button">Finalize presentation</button>
+          <button className="finalize-button" disabled={isDisabled}>
+            Finalize presentation
+          </button>
         </form>
     </section>
-    <Navigation/>
+    <Navigation className="finalize-navigation"/>
     </section>
   )
 }

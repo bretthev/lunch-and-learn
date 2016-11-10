@@ -13,7 +13,7 @@ const NavigationLink = (props) => (
 )
 
 const Navigation = (currentUser, logoutUser) => {
-  
+
   return (
 
     <div className="Navigation">
@@ -22,7 +22,6 @@ const Navigation = (currentUser, logoutUser) => {
       <NavigationLink to="/AddProposal">Create a Proposal</NavigationLink>
       <span className="username">
         Hello {currentUser.currentUser.username}!
-        <button className="logout-btn">( Logout )</button>
       </span>
     </div>
   )
