@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css?family=Yeseva+One');
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Domine');
 
 
 //variables
 
-$primary-color: #348AA7;
-$primary-font: 'Yeseva One', cursive;
-$secondary-font: 'Josefin Sans', sans-serif;
-$accent-color: #FFA630;
-$hover-text-color: black;
-$main-font-color: black;
+$primary-color: #2980b9;
+$primary-font: 'Montserrat', sans-serif;
+// $secondary-font: 'Domine', serif;
+$accent-color: #e74c3c;
+$main-font-color: white;
 $secondary-font-color: black;
+$hover-text-color: black;
 
 
 //mixins
@@ -19,6 +19,10 @@ $secondary-font-color: black;
   font-family: $primary-font;
   border: none;
   outline: none;
-  background-color: black;
-  border-radius: 20px;
+  font-size: 1em;
+  box-shadow: 1px 1px 1px 1px black;
+  width: 80px;
+  height: 30px;
+  color: $main-font-color;
+  transition-duration: .25s;
 }

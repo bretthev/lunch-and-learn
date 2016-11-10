@@ -1,5 +1,6 @@
 import React from 'react';
 import ProposalList from '../containers/ProposalList'
+import Navigation from '../containers/Navigation';
 // import { Link } from 'react-router';
 
 const ProposalForm = ({currentUser, submitProposal, targetProposal, buttonText}) => {
@@ -8,7 +9,7 @@ const ProposalForm = ({currentUser, submitProposal, targetProposal, buttonText})
   if (buttonText === 'Add proposal.') { targetProposal.title='', targetProposal.body='' }
   return (
     <section className="add-proposal">
-      <h1>Add your proposal</h1>
+      <h1 className="form-title">Add your proposal</h1>
       <form className="add-proposal-form"
         onSubmit={ (e) => {
           e.preventDefault()
@@ -17,11 +18,12 @@ const ProposalForm = ({currentUser, submitProposal, targetProposal, buttonText})
           proposalBody.value='';
         }}>
         <input placeholder="Proposal Title" className="title-input" defaultValue={targetProposal.title} ref={ node => { proposalTitle = node}}/>
-        <input placeholder="Proposal Content" className="content-input" defaultValue={targetProposal.body} ref={ node => { proposalBody = node}}/>
-        <button>
+        <textarea placeholder="Proposal Content" className="body-input" defaultValue={targetProposal.body} ref={ node => { proposalBody = node}}/>
+        <button className="submit-proposal-button">
           {buttonText}
         </button>
       </form>
+      <Navigation/>
     </section>
   )
 }

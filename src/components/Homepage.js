@@ -5,8 +5,8 @@ import { Link } from 'react-router';
 
 export class Homepage extends React.Component {
 
-  componentWillMount () {
-    this.props.getUsersFromDatabase()
+  componentDidMount () {
+    // this.props.getUsersFromDatabase()
   }
 
   render() {
@@ -14,7 +14,6 @@ export class Homepage extends React.Component {
       <section className="landing-container">
       { this.props.currentUser.username ?
         <section className="homepage">
-          <h1 className="homepage-title"> Hello {this.props.currentUser.username}! </h1>
           <ProposalList />
         </section>
         :

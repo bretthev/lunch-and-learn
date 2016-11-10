@@ -6,8 +6,7 @@
 }
 
 .proposal-list-container {
-  width: 95%;
-  // height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   margin: auto;
@@ -15,11 +14,12 @@
 
 .proposal-list-ul {
   border: 2px solid black;
-  width: 30%;
+  width: 20%;
   height: 100%;
 }
 
 .short-proposal {
+  color: $main-font-color;
   border-bottom: 1px solid black;
   padding: 10px;
   text-align: center;
@@ -28,7 +28,7 @@
 
 .short-proposal:hover{
   background-color: $accent-color;
-  color: $hover-text-color;
+  color: $main-font-color;
 }
 
 .active-short-proposal{
@@ -42,5 +42,5 @@
 }
 
 .short-author {
-  font-family: $secondary-font;
+  font-family: $primary-font;
 }

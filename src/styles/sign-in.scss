@@ -13,32 +13,29 @@
   text-align: center;
 }
 
-.signin-title {
-  color: $main-font-color;
-  font-size: 3em;
-  font-weight: bold;
-  margin-bottom: 50px;
-}
-
 .signin-link {
   width: 100%;
-  justify-content: center;
+  margin-top: 200px;
+  margin-right: 5%;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: none;
 }
 
 .login-button {
   @include button-styles;
+  background-color: $primary-color;
   color: white;
-  width: 150px;
-  height: 50px;
+  width: 300px;
+  height: 150px;
   padding: 10px;
-  font-size: 1.5em;
+  font-size: 3em;
   transition-duration: .25s;
   text-shadow: 0 1px 0 black;
-  box-shadow: 0 1px 0 black;
 }
 
 .login-button:hover {
   background-color: $accent-color;
-  color: $hover-text-color;
+  color: white;
   text-shadow: none;
 }
