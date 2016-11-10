@@ -8193,19 +8193,27 @@
 	
 	var _reactRouter = __webpack_require__(494);
 	
-	var _storeIndex = __webpack_require__(586);
+	var _storeIndex = __webpack_require__(588);
 	
 	var _storeIndex2 = _interopRequireDefault(_storeIndex);
 	
+	var _firebase = __webpack_require__(559);
+	
+	var _firebase2 = _interopRequireDefault(_firebase);
+	
+	var _userActions = __webpack_require__(558);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	__webpack_require__(588);
+	__webpack_require__(590);
 	
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: _storeIndex2.default },
 	  _react2.default.createElement(_router2.default, { history: _reactRouter.browserHistory })
 	), document.getElementById('root'));
+	
+	_storeIndex2.default.dispatch((0, _userActions.listenForUser)());
 
 /***/ },
 /* 299 */
@@ -31006,27 +31014,27 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _Homepage = __webpack_require__(556);
+	var _Homepage = __webpack_require__(568);
 	
 	var _Homepage2 = _interopRequireDefault(_Homepage);
 	
-	var _SignIn = __webpack_require__(577);
+	var _SignIn = __webpack_require__(557);
 	
 	var _SignIn2 = _interopRequireDefault(_SignIn);
 	
-	var _AddProposal = __webpack_require__(579);
+	var _AddProposal = __webpack_require__(581);
 	
 	var _AddProposal2 = _interopRequireDefault(_AddProposal);
 	
-	var _EditProposal = __webpack_require__(581);
+	var _EditProposal = __webpack_require__(583);
 	
 	var _EditProposal2 = _interopRequireDefault(_EditProposal);
 	
-	var _FinalizePresentation = __webpack_require__(582);
+	var _FinalizePresentation = __webpack_require__(584);
 	
 	var _FinalizePresentation2 = _interopRequireDefault(_FinalizePresentation);
 	
-	var _PresentationList = __webpack_require__(584);
+	var _PresentationList = __webpack_require__(586);
 	
 	var _PresentationList2 = _interopRequireDefault(_PresentationList);
 	
@@ -31039,7 +31047,7 @@
 	    _react2.default.createElement(
 	      _reactRouter.Route,
 	      { path: '/', component: _App2.default },
-	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _SignIn2.default }),
+	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _Homepage2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/Home', component: _Homepage2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/AddProposal', component: _AddProposal2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/EditProposal', component: _EditProposal2.default }),
@@ -36593,50 +36601,38 @@
 /* 555 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _App = __webpack_require__(556);
 	
-	var _react = __webpack_require__(299);
+	var _App2 = _interopRequireDefault(_App);
 	
-	var _react2 = _interopRequireDefault(_react);
+	var _reactRedux = __webpack_require__(469);
+	
+	var _redux = __webpack_require__(476);
+	
+	var _userActions = __webpack_require__(558);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    isUserSignedIn: (0, _userActions.getIsUserSignedIn)(state),
+	    currentUser: state.currentUser
+	  };
+	};
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({
+	    logoutUser: _userActions.logoutUser
+	  }, dispatch);
+	};
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var App = function (_Component) {
-	  _inherits(App, _Component);
-	
-	  function App() {
-	    _classCallCheck(this, App);
-	
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
-	  }
-	
-	  _createClass(App, [{
-	    key: "render",
-	    value: function render() {
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "App" },
-	        this.props.children
-	      );
-	    }
-	  }]);
-	
-	  return App;
-	}(_react.Component);
-	
-	exports.default = App;
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_App2.default);
 
 /***/ },
 /* 556 */
@@ -36648,22 +36644,115 @@
 	  value: true
 	});
 	
-	var _reactRedux = __webpack_require__(469);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _Homepage = __webpack_require__(557);
+	var _react = __webpack_require__(299);
 	
-	var _Homepage2 = _interopRequireDefault(_Homepage);
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(494);
+	
+	var _SignIn = __webpack_require__(557);
+	
+	var _SignIn2 = _interopRequireDefault(_SignIn);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var mapStateToProps = function mapStateToProps(state) {
-	  var currentUser = state.currentUser;
-	  return {
-	    currentUser: currentUser
-	  };
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NavigationLink = function NavigationLink(props) {
+	  return _react2.default.createElement(
+	    _reactRouter.Link,
+	    {
+	      to: props.to,
+	      activeClassName: 'current-link',
+	      className: 'nav-link'
+	    },
+	    props.children
+	  );
 	};
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(_Homepage2.default);
+	var App = function (_Component) {
+	  _inherits(App, _Component);
+	
+	  function App(props) {
+	    _classCallCheck(this, App);
+	
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	
+	    _this.onClickLogout = _this.onClickLogout.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(App, [{
+	    key: 'renderChildren',
+	    value: function renderChildren() {
+	      return this.props.isUserSignedIn ? this.props.children : _react2.default.createElement(_SignIn2.default, null);
+	    }
+	  }, {
+	    key: 'renderUsername',
+	    value: function renderUsername() {
+	      return this.props.isUserSignedIn ? this.props.currentUser.username : 'Logged Out';
+	    }
+	  }, {
+	    key: 'onClickLogout',
+	    value: function onClickLogout() {
+	      this.props.logoutUser();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'App' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'Navigation' },
+	          _react2.default.createElement(
+	            NavigationLink,
+	            { to: '/Home' },
+	            'Home'
+	          ),
+	          _react2.default.createElement(
+	            NavigationLink,
+	            { to: '/Presentations' },
+	            'Presentations'
+	          ),
+	          _react2.default.createElement(
+	            NavigationLink,
+	            { to: '/AddProposal' },
+	            'Create a Proposal'
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'username' },
+	            'Hello ',
+	            this.renderUsername(),
+	            '!',
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'logout-btn', onClick: this.onClickLogout },
+	              '( Logout )'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'App-Body' },
+	          this.renderChildren()
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return App;
+	}(_react.Component);
+	
+	exports.default = App;
 
 /***/ },
 /* 557 */
@@ -36675,59 +36764,30 @@
 	  value: true
 	});
 	
-	var _react = __webpack_require__(299);
+	var _redux = __webpack_require__(476);
 	
-	var _react2 = _interopRequireDefault(_react);
+	var _reactRedux = __webpack_require__(469);
 	
-	var _ProposalList = __webpack_require__(558);
+	var _userActions = __webpack_require__(558);
 	
-	var _ProposalList2 = _interopRequireDefault(_ProposalList);
+	var _SignIn = __webpack_require__(567);
 	
-	var _reactRouter = __webpack_require__(494);
+	var _SignIn2 = _interopRequireDefault(_SignIn);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Homepage = function Homepage(_ref) {
-	  var currentUser = _ref.currentUser,
-	      clearTargetProposal = _ref.clearTargetProposal;
-	
-	  return _react2.default.createElement(
-	    'section',
-	    { className: 'homepage' },
-	    _react2.default.createElement(
-	      'h1',
-	      { className: 'homepage-title' },
-	      currentUser.username ? 'Hello ' + currentUser.username + '!' : 'Loading your profile...'
-	    ),
-	    _react2.default.createElement(_ProposalList2.default, null),
-	    _react2.default.createElement(
-	      'section',
-	      { className: 'dashboard' },
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: '/AddProposal',
-	          className: 'dashboard-link' },
-	        _react2.default.createElement(
-	          'button',
-	          null,
-	          'New proposal'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: '/Presentations',
-	          className: 'dashboard-link' },
-	        _react2.default.createElement(
-	          'button',
-	          null,
-	          'Presentations'
-	        )
-	      )
-	    )
-	  );
+	var mapStateToProps = function mapStateToProps(state) {
+	  var currentUser = state.currentUser;
+	  return {
+	    currentUser: currentUser
+	  };
 	};
 	
-	exports.default = Homepage;
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({ signIn: _userActions.signIn }, dispatch);
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_SignIn2.default);
 
 /***/ },
 /* 558 */
@@ -36738,167 +36798,117 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.getIsUserSignedIn = exports.logoutUser = exports.listenForUser = exports.getUsersFromDatabase = exports.signIn = exports.firebaseApp = undefined;
 	
-	var _reactRedux = __webpack_require__(469);
-	
-	var _proposalActions = __webpack_require__(559);
-	
-	var _presentationActions = __webpack_require__(568);
-	
-	var _redux = __webpack_require__(476);
-	
-	var _ProposalList = __webpack_require__(569);
-	
-	var _ProposalList2 = _interopRequireDefault(_ProposalList);
-	
-	var _rootReducer = __webpack_require__(572);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	  var currentUser = state.currentUser;
-	
-	  var proposals = (0, _rootReducer.getProposals)(state);
-	  var targetProposal = (0, _rootReducer.getTargetProposal)(state);
-	  return {
-	    proposals: proposals,
-	    currentUser: currentUser,
-	    targetProposal: targetProposal
-	  };
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)({ getProposalsFromDatabase: _proposalActions.getProposalsFromDatabase, deleteProposal: _proposalActions.deleteProposal, grabTargetProposal: _proposalActions.grabTargetProposal, clearTargetProposal: _proposalActions.clearTargetProposal, getPresentationsFromDatabase: _presentationActions.getPresentationsFromDatabase, updateLikes: _proposalActions.updateLikes }, dispatch);
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_ProposalList2.default);
-
-/***/ },
-/* 559 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.updateLikes = exports.editProposal = exports.clearTargetProposal = exports.grabTargetProposal = exports.deleteProposal = exports.getProposalsFromDatabase = exports.sendProposalToDatabase = undefined;
-	
-	var _firebase = __webpack_require__(560);
+	var _firebase = __webpack_require__(559);
 	
 	var _firebase2 = _interopRequireDefault(_firebase);
 	
-	var _userActions = __webpack_require__(566);
+	var _lodash = __webpack_require__(565);
 	
-	var _userActions2 = _interopRequireDefault(_userActions);
+	var _currentUser = __webpack_require__(566);
 	
-	var _lodash = __webpack_require__(567);
+	var fromReducer = _interopRequireWildcard(_currentUser);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var proposalsDatabase = _firebase2.default.database().ref('proposals');
+	var firebaseApp = _firebase2.default.initializeApp({
+	  apiKey: "AIzaSyDT87l_Lyz_zIyXHejRXapIEHZYWSEOTxU",
+	  authDomain: "lunch-and-learn-f36ea.firebaseapp.com",
+	  databaseURL: "https://lunch-and-learn-f36ea.firebaseio.com",
+	  storageBucket: "lunch-and-learn-f36ea.appspot.com",
+	  messagingSenderId: "418509108898"
+	});
 	
-	var sendProposalToDatabase = function sendProposalToDatabase(proposalObject) {
-	  proposalsDatabase.push({
-	    author: proposalObject.author,
-	    title: proposalObject.title,
-	    body: proposalObject.body,
-	    timestamp: proposalObject.timestamp,
-	    likes: 0
-	  });
+	var google = new _firebase2.default.auth.GoogleAuthProvider();
+	var userList = _firebase2.default.database().ref('users');
+	
+	var signIn = function signIn() {
 	  return function (dispatch) {
-	    dispatch({
-	      type: 'ADD_PROPOSAL',
-	      proposalObject: proposalObject
+	    _firebase2.default.auth().signInWithPopup(google).then(function (currentUserData) {
+	      dispatch({
+	        type: 'SIGN_IN',
+	        uid: currentUserData.user.uid,
+	        username: currentUserData.user.displayName,
+	        email: currentUserData.user.email
+	      });
+	      addToUserList(currentUserData.user);
 	    });
 	  };
 	};
 	
-	var getProposalsFromDatabase = function getProposalsFromDatabase() {
+	var addToUserList = function addToUserList(user) {
+	  userList.push({
+	    uid: user.uid,
+	    username: user.displayName,
+	    email: user.email,
+	    isAdmin: false,
+	    proposalsLiked: [],
+	    rsvps: []
+	  });
+	  return function (dispatch) {
+	    dispatch({
+	      type: 'ADD_USER'
+	    });
+	  };
+	};
+	
+	var listenForUser = function listenForUser() {
 	  return function (dispatch, getState) {
-	    var proposals = void 0;
-	    proposalsDatabase.on('value', function (snapshot) {
-	      proposals = snapshot.val();
-	      var proposalsObject = (0, _lodash.map)(proposals, function (value, key) {
+	    _firebase2.default.auth().onAuthStateChanged(function (user) {
+	      if (user) {
+	        dispatch({
+	          type: 'SIGN_IN',
+	          uid: user.uid,
+	          username: user.displayName,
+	          email: user.email
+	        });
+	      }
+	    });
+	  };
+	};
+	
+	var getUsersFromDatabase = function getUsersFromDatabase() {
+	  return function (dispatch, getState) {
+	    var users = void 0;
+	    userList.on('value', function (snapshot) {
+	      users = snapshot.val();
+	      var usersObject = (0, _lodash.map)(users, function (value, key) {
 	        return (0, _lodash.extend)(value, { key: key });
 	      });
-	      var proposalsWithKeys = [];
-	      (0, _lodash.map)(proposalsObject, function (p) {
-	        proposalsWithKeys.push(p);
+	      var usersWithKeys = [];
+	      (0, _lodash.map)(usersObject, function (u) {
+	        usersWithKeys.push(u);
 	      });
 	      dispatch({
-	        type: 'GET_PROPOSALS_FROM_DATABASE',
-	        proposalsWithKeys: proposalsWithKeys
+	        type: 'GET_USERS_FROM_DATABASE',
+	        usersWithKeys: usersWithKeys
 	      });
 	    });
 	  };
 	};
 	
-	var deleteProposal = function deleteProposal(key) {
-	  _firebase2.default.database().ref('proposals/' + key).remove();
-	  return function (dispatch, getState) {
-	    dispatch({
-	      type: 'DELETE_PROPOSAL',
-	      key: key
+	var logoutUser = function logoutUser() {
+	  return function (dispatch) {
+	    return dispatch({
+	      type: 'USER_LOGGED_OUT'
 	    });
 	  };
 	};
 	
-	var editProposal = function editProposal(proposal) {
-	  _firebase2.default.database().ref('proposals/' + proposal.id).set({
-	    author: proposal.author,
-	    title: proposal.title,
-	    body: proposal.body,
-	    timestamp: proposal.timestamp,
-	    likes: proposal.likes
-	  });
-	  return function (dispatch) {
-	    dispatch({
-	      type: 'EDIT_PROPOSAL'
-	    });
-	  };
+	exports.firebaseApp = firebaseApp;
+	exports.signIn = signIn;
+	exports.getUsersFromDatabase = getUsersFromDatabase;
+	exports.listenForUser = listenForUser;
+	exports.logoutUser = logoutUser;
+	var getIsUserSignedIn = exports.getIsUserSignedIn = function getIsUserSignedIn(state) {
+	  return fromReducer.getIsUserSignedIn(state.currentUser);
 	};
-	
-	var grabTargetProposal = function grabTargetProposal(proposal) {
-	  return function (dispatch) {
-	    dispatch({ type: 'TARGET_PROPOSAL',
-	      proposal: proposal });
-	  };
-	};
-	
-	var clearTargetProposal = function clearTargetProposal() {
-	  return function (dispatch) {
-	    dispatch({ type: 'CLEAR_TARGET_PROPOSAL' });
-	  };
-	};
-	
-	var updateLikes = function updateLikes(item, number) {
-	  var proposal = { author: item.author,
-	    title: item.title,
-	    body: item.body,
-	    timestamp: item.timestamp,
-	    likes: item.likes + number };
-	  _firebase2.default.database().ref('proposals/' + item.id).update({
-	    likes: proposal.likes
-	  });
-	  return function (dispatch) {
-	    dispatch({
-	      type: 'INCREMENT_LIKES', proposal: proposal
-	    });
-	  };
-	  getProposalsFromDatabase();
-	};
-	
-	exports.sendProposalToDatabase = sendProposalToDatabase;
-	exports.getProposalsFromDatabase = getProposalsFromDatabase;
-	exports.deleteProposal = deleteProposal;
-	exports.grabTargetProposal = grabTargetProposal;
-	exports.clearTargetProposal = clearTargetProposal;
-	exports.editProposal = editProposal;
-	exports.updateLikes = updateLikes;
 
 /***/ },
-/* 560 */
+/* 559 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -36908,16 +36918,16 @@
 	 *
 	 *   firebase = require('firebase');
 	 */
-	var firebase = __webpack_require__(561);
+	var firebase = __webpack_require__(560);
+	__webpack_require__(561);
 	__webpack_require__(562);
 	__webpack_require__(563);
 	__webpack_require__(564);
-	__webpack_require__(565);
 	module.exports = firebase;
 
 
 /***/ },
-/* 561 */
+/* 560 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.5.1
@@ -36961,10 +36971,10 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 562 */
+/* 561 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(561);
+	var firebase = __webpack_require__(560);
 	/*! @license Firebase v3.5.1
 	    Build: 3.5.1-rc.1
 	    Terms: https://developers.google.com/terms */
@@ -37194,10 +37204,10 @@
 
 
 /***/ },
-/* 563 */
+/* 562 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(561);
+	var firebase = __webpack_require__(560);
 	/*! @license Firebase v3.5.1
 	    Build: 3.5.1-rc.1
 	    Terms: https://developers.google.com/terms */
@@ -37446,10 +37456,10 @@
 
 
 /***/ },
-/* 564 */
+/* 563 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(561);
+	var firebase = __webpack_require__(560);
 	/*! @license Firebase v3.5.1
 	    Build: 3.5.1-rc.1
 	    Terms: https://developers.google.com/terms */
@@ -37558,10 +37568,10 @@
 
 
 /***/ },
-/* 565 */
+/* 564 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {var firebase = __webpack_require__(561);
+	/* WEBPACK VAR INJECTION */(function(global) {var firebase = __webpack_require__(560);
 	/*! @license Firebase v3.5.1
 	    Build: 3.5.1-rc.1
 	    Terms: https://developers.google.com/terms */
@@ -37609,89 +37619,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 566 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getUsersFromDatabase = exports.signIn = exports.firebaseApp = undefined;
-	
-	var _firebase = __webpack_require__(560);
-	
-	var _firebase2 = _interopRequireDefault(_firebase);
-	
-	var _lodash = __webpack_require__(567);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var firebaseApp = _firebase2.default.initializeApp({
-	  apiKey: "AIzaSyDT87l_Lyz_zIyXHejRXapIEHZYWSEOTxU",
-	  authDomain: "lunch-and-learn-f36ea.firebaseapp.com",
-	  databaseURL: "https://lunch-and-learn-f36ea.firebaseio.com",
-	  storageBucket: "lunch-and-learn-f36ea.appspot.com",
-	  messagingSenderId: "418509108898"
-	});
-	
-	var google = new _firebase2.default.auth.GoogleAuthProvider();
-	var userList = _firebase2.default.database().ref('users');
-	
-	var signIn = function signIn() {
-	  return function (dispatch) {
-	    _firebase2.default.auth().signInWithPopup(google).then(function (currentUserData) {
-	      dispatch({
-	        type: 'SIGN_IN',
-	        uid: currentUserData.user.uid,
-	        username: currentUserData.user.displayName,
-	        email: currentUserData.user.email
-	      });
-	    });
-	  };
-	};
-	
-	var addToUserList = function addToUserList(user) {
-	  userList.push({
-	    uid: user.uid,
-	    username: user.username,
-	    email: user.email,
-	    isAdmin: true
-	  });
-	  return function (dispatch) {
-	    dispatch({
-	      type: 'ADD_USER'
-	    });
-	  };
-	};
-	
-	var getUsersFromDatabase = function getUsersFromDatabase() {
-	  return function (dispatch, getState) {
-	    var users = void 0;
-	    userList.on('value', function (snapshot) {
-	      users = snapshot.val();
-	      var usersObject = (0, _lodash.map)(users, function (value, key) {
-	        return (0, _lodash.extend)(value, { key: key });
-	      });
-	      var usersWithKeys = [];
-	      (0, _lodash.map)(usersObject, function (u) {
-	        usersWithKeys.push(u);
-	      });
-	      console.log(usersWithKeys);
-	      dispatch({
-	        type: 'GET_USERS_FROM_DATABASE',
-	        usersWithKeys: usersWithKeys
-	      });
-	    });
-	  };
-	};
-	
-	exports.firebaseApp = firebaseApp;
-	exports.signIn = signIn;
-	exports.getUsersFromDatabase = getUsersFromDatabase;
-
-/***/ },
-/* 567 */
+/* 565 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -54680,7 +54608,387 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(484)(module)))
 
 /***/ },
+/* 566 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var currentUser = function currentUser() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case "SIGN_IN":
+	      return Object.assign({}, state, {
+	        uid: action.uid,
+	        username: action.username,
+	        email: action.email
+	      });
+	    case "GET_USERS_FROM_DATABASE":
+	      var completeUser = action.usersWithKeys.filter(function (user) {
+	        return user.uid === state.uid;
+	      });
+	      return completeUser[0];
+	    case "USER_LOGGED_IN":
+	      return state;
+	    case "ANONYMOUS":
+	      return state;
+	    case "USER_LOGGED_OUT":
+	      return {};
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = currentUser;
+	var getIsUserSignedIn = exports.getIsUserSignedIn = function getIsUserSignedIn(state) {
+	  return Boolean(state.email);
+	};
+
+/***/ },
+/* 567 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(494);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Signin = function Signin(_ref) {
+	  var currentUser = _ref.currentUser,
+	      signIn = _ref.signIn;
+	
+	  return _react2.default.createElement(
+	    'section',
+	    { className: 'signin-screen' },
+	    _react2.default.createElement(
+	      'h1',
+	      { className: 'signin-title' },
+	      'Lunch and Learn'
+	    ),
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      { to: '/Home', className: 'signin-link' },
+	      _react2.default.createElement(
+	        'button',
+	        { className: 'login-button',
+	          onClick: function onClick(e) {
+	            return signIn();
+	          } },
+	        'Sign In'
+	      )
+	    )
+	  );
+	};
+	
+	exports.default = Signin;
+
+/***/ },
 /* 568 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(469);
+	
+	var _Homepage = __webpack_require__(569);
+	
+	var _Homepage2 = _interopRequireDefault(_Homepage);
+	
+	var _rootReducer = __webpack_require__(577);
+	
+	var _redux = __webpack_require__(476);
+	
+	var _userActions = __webpack_require__(558);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  var currentUser = state.currentUser;
+	  var users = (0, _rootReducer.getUsers)(state);
+	  return {
+	    currentUser: currentUser,
+	    users: users
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({ getUsersFromDatabase: _userActions.getUsersFromDatabase }, dispatch);
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Homepage2.default);
+
+/***/ },
+/* 569 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Homepage = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _ProposalList = __webpack_require__(570);
+	
+	var _ProposalList2 = _interopRequireDefault(_ProposalList);
+	
+	var _SignIn = __webpack_require__(557);
+	
+	var _SignIn2 = _interopRequireDefault(_SignIn);
+	
+	var _reactRouter = __webpack_require__(494);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Homepage = exports.Homepage = function (_React$Component) {
+	  _inherits(Homepage, _React$Component);
+	
+	  function Homepage() {
+	    _classCallCheck(this, Homepage);
+	
+	    return _possibleConstructorReturn(this, (Homepage.__proto__ || Object.getPrototypeOf(Homepage)).apply(this, arguments));
+	  }
+	
+	  _createClass(Homepage, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.getUsersFromDatabase();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'section',
+	        { className: 'landing-container' },
+	        this.props.currentUser.username ? _react2.default.createElement(
+	          'section',
+	          { className: 'homepage' },
+	          _react2.default.createElement(
+	            'h1',
+	            { className: 'homepage-title' },
+	            ' Welcome to Lunch and Learn! '
+	          ),
+	          _react2.default.createElement(_ProposalList2.default, null)
+	        ) : _react2.default.createElement(_SignIn2.default, null)
+	      );
+	    }
+	  }]);
+	
+	  return Homepage;
+	}(_react2.default.Component);
+	
+	exports.default = Homepage;
+
+/***/ },
+/* 570 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(469);
+	
+	var _proposalActions = __webpack_require__(571);
+	
+	var _presentationActions = __webpack_require__(572);
+	
+	var _redux = __webpack_require__(476);
+	
+	var _ProposalList = __webpack_require__(573);
+	
+	var _ProposalList2 = _interopRequireDefault(_ProposalList);
+	
+	var _rootReducer = __webpack_require__(577);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  var currentUser = state.currentUser;
+	
+	  var proposals = (0, _rootReducer.getProposals)(state);
+	  var targetProposal = (0, _rootReducer.getTargetProposal)(state);
+	  return {
+	    proposals: proposals,
+	    currentUser: currentUser,
+	    targetProposal: targetProposal
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({ getProposalsFromDatabase: _proposalActions.getProposalsFromDatabase, deleteProposal: _proposalActions.deleteProposal, grabTargetProposal: _proposalActions.grabTargetProposal, clearTargetProposal: _proposalActions.clearTargetProposal, getPresentationsFromDatabase: _presentationActions.getPresentationsFromDatabase, updateLikes: _proposalActions.updateLikes }, dispatch);
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_ProposalList2.default);
+
+/***/ },
+/* 571 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.updateLikes = exports.editProposal = exports.clearTargetProposal = exports.grabTargetProposal = exports.deleteProposal = exports.getProposalsFromDatabase = exports.sendProposalToDatabase = undefined;
+	
+	var _firebase = __webpack_require__(559);
+	
+	var _firebase2 = _interopRequireDefault(_firebase);
+	
+	var _userActions = __webpack_require__(558);
+	
+	var _userActions2 = _interopRequireDefault(_userActions);
+	
+	var _lodash = __webpack_require__(565);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var proposalsDatabase = _firebase2.default.database().ref('proposals');
+	
+	var sendProposalToDatabase = function sendProposalToDatabase(proposalObject) {
+	  proposalsDatabase.push({
+	    author: proposalObject.author,
+	    title: proposalObject.title,
+	    body: proposalObject.body,
+	    timestamp: proposalObject.timestamp,
+	    likes: 0,
+	    likedBy: ['defaultLike']
+	  });
+	  return function (dispatch) {
+	    dispatch({
+	      type: 'ADD_PROPOSAL'
+	    });
+	  };
+	};
+	
+	var getProposalsFromDatabase = function getProposalsFromDatabase() {
+	  return function (dispatch, getState) {
+	    var proposals = void 0;
+	    proposalsDatabase.on('value', function (snapshot) {
+	      proposals = snapshot.val();
+	      var proposalsObject = (0, _lodash.map)(proposals, function (value, key) {
+	        return (0, _lodash.extend)(value, { key: key });
+	      });
+	      var proposalsWithKeys = [];
+	      (0, _lodash.map)(proposalsObject, function (p) {
+	        proposalsWithKeys.push(p);
+	      });
+	      dispatch({
+	        type: 'GET_PROPOSALS_FROM_DATABASE',
+	        proposalsWithKeys: proposalsWithKeys
+	      });
+	    });
+	  };
+	};
+	
+	var deleteProposal = function deleteProposal(key) {
+	  _firebase2.default.database().ref('proposals/' + key).remove();
+	  return function (dispatch, getState) {
+	    dispatch({
+	      type: 'DELETE_PROPOSAL',
+	      key: key
+	    });
+	  };
+	};
+	
+	var editProposal = function editProposal(proposal) {
+	  _firebase2.default.database().ref('proposals/' + proposal.id).set({
+	    author: proposal.author,
+	    title: proposal.title,
+	    body: proposal.body,
+	    timestamp: proposal.timestamp,
+	    likes: proposal.likes,
+	    likedBy: proposal.likedBy
+	  });
+	  return function (dispatch) {
+	    dispatch({
+	      type: 'EDIT_PROPOSAL'
+	    });
+	  };
+	};
+	
+	var grabTargetProposal = function grabTargetProposal(proposal) {
+	  return function (dispatch) {
+	    dispatch({ type: 'TARGET_PROPOSAL',
+	      proposal: proposal });
+	  };
+	};
+	
+	var clearTargetProposal = function clearTargetProposal() {
+	  return function (dispatch) {
+	    dispatch({ type: 'CLEAR_TARGET_PROPOSAL' });
+	  };
+	};
+	
+	var updateProposalInFirebase = function updateProposalInFirebase(id, newLikes, newLikedBy) {
+	  _firebase2.default.database().ref('proposals/' + id).update({ likes: newLikes, likedBy: newLikedBy });
+	};
+	
+	var checkIfUserHasLikedProposal = function checkIfUserHasLikedProposal(likedByArray, number, uid) {
+	  var filterForRepeatLikes = function filterForRepeatLikes(likedIds) {
+	    return likedIds !== uid;
+	  };
+	  var filteredArray = likedByArray.filter(filterForRepeatLikes);
+	  if (number === 1) {
+	    filteredArray = filteredArray.concat(uid);
+	  }
+	  return filteredArray;
+	};
+	
+	var updateLikes = function updateLikes(item, number, uid) {
+	  var likedByArray = checkIfUserHasLikedProposal(item.likedBy, number, uid);
+	  var proposal = Object.assign({}, item, { likes: item.likes + number, likedBy: likedByArray });
+	  updateProposalInFirebase(item.id, proposal.likes, proposal.likedBy);
+	  return function (dispatch) {
+	    dispatch({
+	      type: 'UPDATE_LIKES', proposal: proposal
+	    });
+	  };
+	  getProposalsFromDatabase();
+	};
+	
+	exports.sendProposalToDatabase = sendProposalToDatabase;
+	exports.getProposalsFromDatabase = getProposalsFromDatabase;
+	exports.deleteProposal = deleteProposal;
+	exports.grabTargetProposal = grabTargetProposal;
+	exports.clearTargetProposal = clearTargetProposal;
+	exports.editProposal = editProposal;
+	exports.updateLikes = updateLikes;
+
+/***/ },
+/* 572 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54690,15 +54998,15 @@
 	});
 	exports.updateRsvps = exports.clearTargetPresentation = exports.grabTargetPresentation = exports.addProposalToPresentations = exports.getPresentationsFromDatabase = undefined;
 	
-	var _firebase = __webpack_require__(560);
+	var _firebase = __webpack_require__(559);
 	
 	var _firebase2 = _interopRequireDefault(_firebase);
 	
-	var _userActions = __webpack_require__(566);
+	var _userActions = __webpack_require__(558);
 	
 	var _userActions2 = _interopRequireDefault(_userActions);
 	
-	var _lodash = __webpack_require__(567);
+	var _lodash = __webpack_require__(565);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -54710,8 +55018,10 @@
 	    title: proposal.title,
 	    location: proposal.location,
 	    body: proposal.body,
+	    isPresentation: true,
 	    timestamp: proposal.timestamp,
-	    rsvps: 0
+	    rsvps: 0,
+	    rsvpList: ['default']
 	  });
 	  return function (dispatch) {
 	    dispatch({
@@ -54757,23 +55067,32 @@
 	  };
 	};
 	
-	var updateRsvps = function updateRsvps(item, number) {
-	  var presentation = { author: item.author,
-	    title: item.title,
-	    body: item.body,
-	    timestamp: item.timestamp,
-	    location: item.location,
-	    rsvps: item.rsvps + number };
-	  _firebase2.default.database().ref('presentations/' + item.id).update({
-	    rsvps: presentation.rsvps
-	  });
+	var updatePresentationInFirebase = function updatePresentationInFirebase(id, newRsvps, newRsvpList) {
+	  _firebase2.default.database().ref('presentations/' + id).update({ rsvps: newRsvps, rsvpList: newRsvpList });
+	};
+	
+	var checkIfUserHasRsvpd = function checkIfUserHasRsvpd(rsvpdArray, number, uid) {
+	  var filterForRepeatRsvps = function filterForRepeatRsvps(rsvdList) {
+	    return rsvdList !== uid;
+	  };
+	  var filteredRsvpArray = rsvpdArray.filter(filterForRepeatRsvps);
+	  if (number === 1) {
+	    filteredRsvpArray = filteredRsvpArray.concat(uid);
+	  }
+	  return filteredRsvpArray;
+	};
+	
+	var updateRsvps = function updateRsvps(item, number, uid) {
+	  var rsvpdListArray = checkIfUserHasRsvpd(item.rsvpList, number, uid);
+	  var presentation = Object.assign({}, item, { rsvps: item.rsvps + number, rsvpList: rsvpdListArray });
+	  updatePresentationInFirebase(item.id, presentation.rsvps, presentation.rsvpList);
 	  return function (dispatch) {
 	    dispatch({
 	      type: 'UPDATE_RSVPS',
 	      presentation: presentation
 	    });
 	  };
-	  getPresentationsFromDatabase();
+	  getPresentationsFromFirebase();
 	};
 	
 	exports.getPresentationsFromDatabase = getPresentationsFromDatabase;
@@ -54783,7 +55102,7 @@
 	exports.updateRsvps = updateRsvps;
 
 /***/ },
-/* 569 */
+/* 573 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54801,15 +55120,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ShortDisplayItem = __webpack_require__(570);
+	var _ShortDisplayItem = __webpack_require__(574);
 	
 	var _ShortDisplayItem2 = _interopRequireDefault(_ShortDisplayItem);
 	
-	var _TargetItem = __webpack_require__(571);
+	var _TargetItem = __webpack_require__(575);
 	
 	var _TargetItem2 = _interopRequireDefault(_TargetItem);
 	
-	var _lodash = __webpack_require__(567);
+	var _lodash = __webpack_require__(565);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -54832,15 +55151,29 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.props.getProposalsFromDatabase();
+	      this.props.getPresentationsFromDatabase();
+	    }
+	  }, {
+	    key: 'renderTargetItem',
+	    value: function renderTargetItem() {
+	      return this.props.targetProposal.title === '' ? _react2.default.createElement(
+	        'h2',
+	        { className: 'empty-target-message target-item' },
+	        'Click an item to the left to see more info.'
+	      ) : _react2.default.createElement(_TargetItem2.default, _extends({ deleteProposal: this.props.deleteProposal, updateCounter: this.props.updateLikes, clearTarget: this.props.clearTargetProposal, uid: this.props.currentUser.uid }, this.props.targetProposal));
+	    }
+	  }, {
+	    key: 'displayShortProposals',
+	    value: function displayShortProposals() {
+	      var _this2 = this;
+	
+	      return (0, _lodash.map)(this.props.proposals, function (proposal) {
+	        return _react2.default.createElement(_ShortDisplayItem2.default, _extends({ key: proposal.key || proposal.timestamp, id: proposal.key, grabTarget: _this2.props.grabTargetProposal, clearProposal: _this2.props.clearTargetProposal }, proposal));
+	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
-	      var displayShortProposals = (0, _lodash.map)(this.props.proposals, function (proposal) {
-	        return _react2.default.createElement(_ShortDisplayItem2.default, _extends({ key: proposal.key || proposal.timestamp, id: proposal.key, grabTarget: _this2.props.grabTargetProposal, clearProposal: _this2.props.clearTargetProposal }, proposal));
-	      });
 	      if (this.props.proposals.length > 0) {
 	        return _react2.default.createElement(
 	          'section',
@@ -54851,9 +55184,9 @@
 	            _react2.default.createElement(
 	              'ul',
 	              { className: 'proposal-list-ul' },
-	              displayShortProposals
+	              this.displayShortProposals()
 	            ),
-	            _react2.default.createElement(_TargetItem2.default, _extends({ deleteProposal: this.props.deleteProposal, updateCounter: this.props.updateLikes, clearTarget: this.props.clearTargetProposal }, this.props.targetProposal))
+	            this.renderTargetItem()
 	          )
 	        );
 	      } else {
@@ -54872,7 +55205,7 @@
 	exports.default = ProposalList;
 
 /***/ },
-/* 570 */
+/* 574 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54885,7 +55218,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ProposalList = __webpack_require__(569);
+	var _ProposalList = __webpack_require__(573);
 	
 	var _ProposalList2 = _interopRequireDefault(_ProposalList);
 	
@@ -54921,7 +55254,7 @@
 	exports.default = ShortDisplayItem;
 
 /***/ },
-/* 571 */
+/* 575 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54934,15 +55267,54 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ProposalList = __webpack_require__(569);
+	var _ProposalList = __webpack_require__(573);
 	
 	var _ProposalList2 = _interopRequireDefault(_ProposalList);
 	
 	var _reactRouter = __webpack_require__(494);
 	
+	var _Counter = __webpack_require__(576);
+	
+	var _Counter2 = _interopRequireDefault(_Counter);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var TargetItem = function TargetItem(item) {
+	  var counterObject = { counterChange: 1, buttonText: 'Like' };
+	  if (item.likedBy && item.likedBy.includes(item.uid)) {
+	    counterObject = { counterChange: -1, buttonText: 'Unlike' };
+	  }
+	
+	  var finalizeButton = !item.isPresentation ? _react2.default.createElement(
+	    _reactRouter.Link,
+	    { to: '/FinalizePresentation' },
+	    _react2.default.createElement(
+	      'button',
+	      null,
+	      'Finalize'
+	    )
+	  ) : null;
+	
+	  var deleteButton = _react2.default.createElement(
+	    'button',
+	    {
+	      className: 'delete-item-button',
+	      onClick: function onClick(e) {
+	        item.deleteProposal(item.id);
+	        item.clearTarget();
+	      } },
+	    'Delete'
+	  );
+	  var editButton = _react2.default.createElement(
+	    _reactRouter.Link,
+	    { to: '/EditProposal' },
+	    _react2.default.createElement(
+	      'button',
+	      { className: 'edit-item-button' },
+	      'Edit'
+	    )
+	  );
+	
 	  return _react2.default.createElement(
 	    'article',
 	    { className: 'target-item' },
@@ -54954,6 +55326,7 @@
 	    item.location ? _react2.default.createElement(
 	      'h3',
 	      { className: 'target-location' },
+	      'Location: ',
 	      item.location
 	    ) : '',
 	    _react2.default.createElement(
@@ -54966,76 +55339,13 @@
 	      { className: 'target-body' },
 	      item.body
 	    ),
-	    item.likes >= 0 && item.title !== '' ? _react2.default.createElement(
-	      'section',
-	      { className: 'counter-container' },
-	      _react2.default.createElement(
-	        'h4',
-	        null,
-	        'Likes: ',
-	        item.likes
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        { onClick: function onClick(e) {
-	            item.updateCounter(item, 1);
-	          } },
-	        'Like'
-	      )
-	    ) : '',
-	    item.rsvps >= 0 && item.title !== '' ? _react2.default.createElement(
-	      'section',
-	      { className: 'counter-container' },
-	      _react2.default.createElement(
-	        'h4',
-	        null,
-	        'RSVPs: ',
-	        item.rsvps
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        { onClick: function onClick(e) {
-	            item.updateCounter(item, 1);
-	          } },
-	        'RSVP'
-	      )
-	    ) : '',
-	    item.title !== '' ? _react2.default.createElement(
+	    _react2.default.createElement(
 	      'div',
 	      { className: 'target-button-container' },
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: '/EditProposal' },
-	        _react2.default.createElement(
-	          'button',
-	          { className: 'edit-item-button' },
-	          'Edit'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        {
-	          className: 'delete-item-button',
-	          onClick: function onClick(e) {
-	            item.deleteProposal(item.id);
-	            item.clearTarget();
-	          }
-	        },
-	        'Delete'
-	      ),
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: '/FinalizePresentation' },
-	        _react2.default.createElement(
-	          'button',
-	          null,
-	          'Finalize'
-	        )
-	      )
-	    ) : _react2.default.createElement(
-	      'h2',
-	      { className: 'empty-target-message' },
-	      'Click an item on the left to see more info.'
+	      _react2.default.createElement(_Counter2.default, item),
+	      editButton,
+	      deleteButton,
+	      finalizeButton
 	    )
 	  );
 	};
@@ -55043,7 +55353,71 @@
 	exports.default = TargetItem;
 
 /***/ },
-/* 572 */
+/* 576 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Counter = function Counter(item) {
+	  var hasLiked = item.isPresentation ? false : item.likedBy.includes(item.uid);
+	  var hasRsvpd = item.isPresentation ? item.rsvpList.includes(item.uid) : false;
+	  var counterChange = void 0;
+	  if (item.isPresentation) {
+	    counterChange = hasRsvpd ? -1 : 1;
+	  } else {
+	    counterChange = hasLiked ? -1 : 1;
+	  }
+	
+	  var buttonText = void 0;
+	  if (item.isPresentation) {
+	    buttonText = hasRsvpd ? "Cancel RSVP" : "RSVP";
+	  } else {
+	    buttonText = hasLiked ? "Unlike" : "Like";
+	  }
+	
+	  var buttonElement = _react2.default.createElement(
+	    "button",
+	    { className: "counter-button", onClick: function onClick(e) {
+	        item.updateCounter(item, counterChange, item.uid);
+	      } },
+	    buttonText
+	  );
+	
+	  return item.isPresentation ? _react2.default.createElement(
+	    "section",
+	    { className: "counter-container" },
+	    buttonElement,
+	    _react2.default.createElement(
+	      "h4",
+	      { className: "counter-text" },
+	      item.rsvps
+	    )
+	  ) : _react2.default.createElement(
+	    "section",
+	    { className: "counter-container" },
+	    buttonElement,
+	    _react2.default.createElement(
+	      "h4",
+	      { className: "counter-text" },
+	      item.likes
+	    )
+	  );
+	};
+	
+	exports.default = Counter;
+
+/***/ },
+/* 577 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55051,25 +55425,25 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getTargetPresentation = exports.getPresentations = exports.getTargetProposal = exports.getProposals = undefined;
+	exports.getUsers = exports.getTargetPresentation = exports.getPresentations = exports.getTargetProposal = exports.getProposals = undefined;
 	
 	var _redux = __webpack_require__(476);
 	
-	var _currentUser = __webpack_require__(573);
+	var _currentUser = __webpack_require__(566);
 	
 	var _currentUser2 = _interopRequireDefault(_currentUser);
 	
-	var _proposals = __webpack_require__(574);
+	var _proposals = __webpack_require__(578);
 	
 	var fromProposals = _interopRequireWildcard(_proposals);
 	
-	var _presentations = __webpack_require__(575);
+	var _presentations = __webpack_require__(579);
 	
 	var fromPresentations = _interopRequireWildcard(_presentations);
 	
-	var _users = __webpack_require__(576);
+	var _users = __webpack_require__(580);
 	
-	var _users2 = _interopRequireDefault(_users);
+	var fromUsers = _interopRequireWildcard(_users);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -55077,11 +55451,11 @@
 	
 	var rootReducer = (0, _redux.combineReducers)({
 	  currentUser: _currentUser2.default,
-	  users: _users2.default,
 	  proposals: _proposals.proposals,
 	  targetProposal: _proposals.targetProposal,
 	  presentations: _presentations.presentations,
-	  targetPresentation: _presentations.targetPresentation
+	  targetPresentation: _presentations.targetPresentation,
+	  users: _users.users
 	});
 	
 	exports.default = rootReducer;
@@ -55098,40 +55472,13 @@
 	var getTargetPresentation = exports.getTargetPresentation = function getTargetPresentation(state) {
 	  return fromPresentations.getTargetPresentation(state);
 	};
-
-/***/ },
-/* 573 */
-/***/ function(module, exports) {
-
-	"use strict";
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var currentUser = function currentUser() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	  var action = arguments[1];
-	
-	  switch (action.type) {
-	    case "SIGN_IN":
-	      return Object.assign({}, state, {
-	        uid: action.uid,
-	        username: action.username,
-	        email: action.email
-	      });
-	    case "USER_LOGGED_IN":
-	      return state;
-	    case "ANONYMOUS":
-	      return state;
-	    default:
-	      return state;
-	  }
+	var getUsers = exports.getUsers = function getUsers(state) {
+	  return fromUsers.getUsers(state);
 	};
-	
-	exports.default = currentUser;
 
 /***/ },
-/* 574 */
+/* 578 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -55149,6 +55496,9 @@
 	          v: action.proposalsWithKeys
 	        };
 	      case 'ADD_PROPOSAL':
+	        return {
+	          v: state
+	        };
 	      case 'EDIT_PROPOSAL':
 	        return {
 	          v: state
@@ -55177,7 +55527,7 @@
 	
 	  switch (action.type) {
 	    case 'TARGET_PROPOSAL':
-	    case 'INCREMENT_LIKES':
+	    case 'UPDATE_LIKES':
 	      return Object.assign({}, state, action.proposal);
 	    case 'CLEAR_TARGET_PROPOSAL':
 	      return Object.assign({}, state, { title: '', body: '', id: null, author: '' });
@@ -55196,7 +55546,7 @@
 	module.exports = { targetProposal: targetProposal, proposals: proposals, getProposals: getProposals, getTargetProposal: getTargetProposal };
 
 /***/ },
-/* 575 */
+/* 579 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -55214,7 +55564,7 @@
 	};
 	
 	var targetPresentation = function targetPresentation() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { author: '', title: '', body: '', location: '' };
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { author: '', title: '', body: '', location: '', rsvps: 0, rsvpList: ['default'] };
 	  var action = arguments[1];
 	
 	  switch (action.type) {
@@ -55222,7 +55572,7 @@
 	    case 'UPDATE_RSVPS':
 	      return Object.assign({}, state, action.presentation);
 	    case 'CLEAR_TARGET_PRESENTATION':
-	      return Object.assign({}, state, { title: '', body: '', id: null, author: '', location: '' });
+	      return Object.assign({}, state, { title: '', body: '', id: null, author: '', location: '', rsvps: 0, rsvpList: ['default'] });
 	    default:
 	      return state;
 	  }
@@ -55351,14 +55701,11 @@
 	// export const getCanEditPresentation = (profile) => profile.isAdmin;
 
 /***/ },
-/* 576 */
+/* 580 */
 /***/ function(module, exports) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	var users = function users() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var action = arguments[1];
@@ -55373,10 +55720,14 @@
 	  }
 	};
 	
-	exports.default = users;
+	var getUsers = function getUsers(state) {
+	  return state.users;
+	};
+	
+	module.exports = { users: users, getUsers: getUsers };
 
 /***/ },
-/* 577 */
+/* 581 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55389,96 +55740,9 @@
 	
 	var _reactRedux = __webpack_require__(469);
 	
-	var _userActions = __webpack_require__(566);
+	var _proposalActions = __webpack_require__(571);
 	
-	var _SignIn = __webpack_require__(578);
-	
-	var _SignIn2 = _interopRequireDefault(_SignIn);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	  var currentUser = state.currentUser;
-	  return {
-	    currentUser: currentUser
-	  };
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    logIn: function logIn() {
-	      dispatch((0, _userActions.signIn)());
-	      dispatch((0, _userActions.getUsersFromDatabase)());
-	    }
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_SignIn2.default);
-
-/***/ },
-/* 578 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(494);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Signin = function Signin(_ref) {
-	  var currentUser = _ref.currentUser,
-	      logIn = _ref.logIn;
-	
-	  return _react2.default.createElement(
-	    'section',
-	    { className: 'signin-screen' },
-	    _react2.default.createElement(
-	      'h1',
-	      { className: 'signin-title' },
-	      'Lunch and Learn'
-	    ),
-	    _react2.default.createElement(
-	      _reactRouter.Link,
-	      { to: '/Home', className: 'signin-link' },
-	      _react2.default.createElement(
-	        'button',
-	        { className: 'login-button',
-	          onClick: function onClick(e) {
-	            return logIn();
-	          } },
-	        'Sign In'
-	      )
-	    )
-	  );
-	};
-	
-	exports.default = Signin;
-
-/***/ },
-/* 579 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(476);
-	
-	var _reactRedux = __webpack_require__(469);
-	
-	var _proposalActions = __webpack_require__(559);
-	
-	var _ProposalForm = __webpack_require__(580);
+	var _ProposalForm = __webpack_require__(582);
 	
 	var _ProposalForm2 = _interopRequireDefault(_ProposalForm);
 	
@@ -55508,7 +55772,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_ProposalForm2.default);
 
 /***/ },
-/* 580 */
+/* 582 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55521,7 +55785,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ProposalList = __webpack_require__(558);
+	var _ProposalList = __webpack_require__(570);
 	
 	var _ProposalList2 = _interopRequireDefault(_ProposalList);
 	
@@ -55560,7 +55824,7 @@
 	      _react2.default.createElement('input', { placeholder: 'Proposal Title', className: 'title-input', defaultValue: targetProposal.title, ref: function ref(node) {
 	          proposalTitle = node;
 	        } }),
-	      _react2.default.createElement('input', { placeholder: 'Proposal Content', className: 'content-input', defaultValue: targetProposal.body, ref: function ref(node) {
+	      _react2.default.createElement('input', { placeholder: 'Proposal Content', className: 'body-input', defaultValue: targetProposal.body, ref: function ref(node) {
 	          proposalBody = node;
 	        } }),
 	      _react2.default.createElement(
@@ -55575,7 +55839,7 @@
 	exports.default = ProposalForm;
 
 /***/ },
-/* 581 */
+/* 583 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55588,9 +55852,9 @@
 	
 	var _redux = __webpack_require__(476);
 	
-	var _proposalActions = __webpack_require__(559);
+	var _proposalActions = __webpack_require__(571);
 	
-	var _ProposalForm = __webpack_require__(580);
+	var _ProposalForm = __webpack_require__(582);
 	
 	var _ProposalForm2 = _interopRequireDefault(_ProposalForm);
 	
@@ -55619,7 +55883,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_ProposalForm2.default);
 
 /***/ },
-/* 582 */
+/* 584 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55632,9 +55896,9 @@
 	
 	var _reactRedux = __webpack_require__(469);
 	
-	var _presentationActions = __webpack_require__(568);
+	var _presentationActions = __webpack_require__(572);
 	
-	var _FinalizePresentation = __webpack_require__(583);
+	var _FinalizePresentation = __webpack_require__(585);
 	
 	var _FinalizePresentation2 = _interopRequireDefault(_FinalizePresentation);
 	
@@ -55657,7 +55921,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_FinalizePresentation2.default);
 
 /***/ },
-/* 583 */
+/* 585 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55734,7 +55998,7 @@
 	exports.default = FinalizePresentation;
 
 /***/ },
-/* 584 */
+/* 586 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55745,15 +56009,15 @@
 	
 	var _reactRedux = __webpack_require__(469);
 	
-	var _presentationActions = __webpack_require__(568);
+	var _presentationActions = __webpack_require__(572);
 	
 	var _redux = __webpack_require__(476);
 	
-	var _PresentationList = __webpack_require__(585);
+	var _PresentationList = __webpack_require__(587);
 	
 	var _PresentationList2 = _interopRequireDefault(_PresentationList);
 	
-	var _rootReducer = __webpack_require__(572);
+	var _rootReducer = __webpack_require__(577);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -55776,7 +56040,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_PresentationList2.default);
 
 /***/ },
-/* 585 */
+/* 587 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55793,13 +56057,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _lodash = __webpack_require__(567);
+	var _lodash = __webpack_require__(565);
 	
-	var _ShortDisplayItem = __webpack_require__(570);
+	var _ShortDisplayItem = __webpack_require__(574);
 	
 	var _ShortDisplayItem2 = _interopRequireDefault(_ShortDisplayItem);
 	
-	var _TargetItem = __webpack_require__(571);
+	var _TargetItem = __webpack_require__(575);
 	
 	var _TargetItem2 = _interopRequireDefault(_TargetItem);
 	
@@ -55826,6 +56090,15 @@
 	      this.props.getPresentationsFromDatabase();
 	    }
 	  }, {
+	    key: 'renderTargetItem',
+	    value: function renderTargetItem() {
+	      return this.props.targetPresentation.title === '' ? _react2.default.createElement(
+	        'h2',
+	        { className: 'empty-target-message target-item' },
+	        'Click an item on the left to see more.'
+	      ) : _react2.default.createElement(_TargetItem2.default, _extends({ deleteProposal: this.props.deletePresentation, updateCounter: this.props.updateRsvps, clearTarget: this.props.clearTargetPresentation, uid: this.props.currentUser.uid }, this.props.targetPresentation));
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -55846,7 +56119,7 @@
 	            displayShortPresentations,
 	            ' '
 	          ),
-	          _react2.default.createElement(_TargetItem2.default, _extends({ deletePresentation: this.props.deletePresentation, updateCounter: this.props.updateRsvps }, this.props.targetPresentation))
+	          this.renderTargetItem()
 	        )
 	      );
 	    }
@@ -55858,7 +56131,7 @@
 	exports.default = PresentationList;
 
 /***/ },
-/* 586 */
+/* 588 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55869,11 +56142,11 @@
 	
 	var _redux = __webpack_require__(476);
 	
-	var _reduxThunk = __webpack_require__(587);
+	var _reduxThunk = __webpack_require__(589);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _rootReducer = __webpack_require__(572);
+	var _rootReducer = __webpack_require__(577);
 	
 	var _rootReducer2 = _interopRequireDefault(_rootReducer);
 	
@@ -55884,7 +56157,7 @@
 	exports.default = (0, _redux.createStore)(_rootReducer2.default, {}, composeEnhancers((0, _redux.applyMiddleware)(_reduxThunk2.default)));
 
 /***/ },
-/* 587 */
+/* 589 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -55912,16 +56185,16 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 588 */
+/* 590 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(589);
+	var content = __webpack_require__(591);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(591)(content, {});
+	var update = __webpack_require__(593)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -55938,22 +56211,22 @@
 	}
 
 /***/ },
-/* 589 */
+/* 591 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(590)();
+	exports = module.exports = __webpack_require__(592)();
 	// imports
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Yeseva+One);", ""]);
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Josefin+Sans);", ""]);
 	
 	// module
-	exports.push([module.id, "/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n.signin-screen {\n  font-family: \"Yeseva One\", cursive;\n  width: 100%;\n  height: 100%;\n  background-color: #348AA7;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  text-align: center; }\n\n.signin-title {\n  color: black;\n  font-size: 3em;\n  font-weight: bold;\n  margin-bottom: 50px; }\n\n.signin-link {\n  width: 100%;\n  justify-content: center; }\n\n.login-button {\n  font-family: \"Yeseva One\", cursive;\n  border: none;\n  outline: none;\n  background-color: black;\n  border-radius: 20px;\n  color: white;\n  width: 150px;\n  height: 50px;\n  padding: 10px;\n  font-size: 1.5em;\n  transition-duration: .25s;\n  text-shadow: 0 1px 0 black;\n  box-shadow: 0 1px 0 black; }\n\n.login-button:hover {\n  background-color: #FFA630;\n  color: black;\n  text-shadow: none; }\n\n.homepage {\n  width: 100%;\n  justify-content: center; }\n\n.homepage-title {\n  font-size: 2em;\n  font-family: \"Yeseva One\", cursive;\n  text-align: center;\n  margin-top: 30px;\n  margin-bottom: 30px; }\n\n.proposal-list {\n  width: 100%;\n  justify-content: center; }\n\n.proposal-list-container {\n  width: 95%;\n  display: flex;\n  flex-direction: row;\n  margin: auto; }\n\n.proposal-list-ul {\n  border: 2px solid black;\n  width: 30%;\n  height: 100%; }\n\n.short-proposal {\n  border-bottom: 1px solid black;\n  padding: 10px;\n  text-align: center;\n  transition-duration: .25s; }\n\n.short-proposal:hover {\n  background-color: #FFA630;\n  color: black; }\n\n.active-short-proposal {\n  background-color: #FFA630;\n  color: white; }\n\n.short-title {\n  font-family: \"Yeseva One\", cursive;\n  margin-bottom: 10px; }\n\n.short-author {\n  font-family: \"Josefin Sans\", sans-serif; }\n\n.target-item {\n  padding-top: 30px;\n  background-color: white;\n  display: flex;\n  align-items: flex-start;\n  width: 70%;\n  flex-direction: column;\n  padding-left: 15px; }\n\n.target-button-container {\n  display: flex;\n  flex-direction: row;\n  margin-top: 30px;\n  width: 100%;\n  justify-content: center; }\n\n.target-title {\n  font-size: 1.5em;\n  font-family: \"Yeseva One\", cursive;\n  margin-bottom: 20px; }\n\n.target-author {\n  font-size: 1.25em;\n  font-weight: bold;\n  font-family: \"Josefin Sans\", sans-serif;\n  margin-bottom: 10px; }\n\n.target-body {\n  font-size: 1em;\n  font-family: \"Josefin Sans\", sans-serif;\n  text-align: justify;\n  width: 100%; }\n\n.empty-target-message {\n  font-family: \"Josefin Sans\", sans-serif;\n  font-weight: bold;\n  font-size: 1.5em;\n  width: 100%;\n  text-align: center; }\n\n.target-button-container button {\n  font-family: \"Yeseva One\", cursive;\n  border: none;\n  outline: none;\n  background-color: black;\n  border-radius: 20px;\n  margin: 10px;\n  font-size: 1em;\n  text-shadow: 0 1px 0 black;\n  box-shadow: 0 1px 0 black;\n  color: white;\n  transition-duration: .25s; }\n\n.target-button-container button:hover {\n  background-color: #FFA630;\n  color: black; }\n\n.dashboard {\n  margin-top: 30px; }\n\n.dashboard-link {\n  display: flex;\n  justify-content: center;\n  text-decoration: none; }\n\n.dashboard-link button {\n  font-family: \"Yeseva One\", cursive;\n  border: none;\n  outline: none;\n  background-color: black;\n  border-radius: 20px;\n  text-decoration: none;\n  color: white;\n  font-size: 1.25em;\n  width: 150px;\n  height: 50px;\n  text-shadow: 0 1px 0 black;\n  box-shadow: 0 1px 0 black; }\n\n.dashboard-link button:visited {\n  text-decoration: none; }\n\n.dashboard-link button:hover {\n  transition-duration: .25s;\n  background-color: #FFA630;\n  color: black;\n  text-shadow: none; }\n\nbody, html, #root, .App {\n  display: flex;\n  background-color: #348AA7;\n  height: 100%;\n  width: 100%; }\n", ""]);
+	exports.push([module.id, "/* http://meyerweb.com/eric/tools/css/reset/\n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n.signin-screen {\n  font-family: \"Yeseva One\", cursive;\n  width: 100%;\n  height: 100%;\n  background-color: #348AA7;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  text-align: center; }\n\n.signin-title {\n  color: black;\n  font-size: 3em;\n  font-weight: bold;\n  margin-bottom: 50px; }\n\n.signin-link {\n  width: 100%;\n  justify-content: center; }\n\n.login-button {\n  font-family: \"Yeseva One\", cursive;\n  border: none;\n  outline: none;\n  border-radius: 20px;\n  margin: 10px;\n  font-size: 1em;\n  box-shadow: 0 1px 0 black;\n  width: 80px;\n  height: 30px;\n  background-color: black;\n  color: white;\n  transition-duration: .25s;\n  color: white;\n  width: 150px;\n  height: 50px;\n  padding: 10px;\n  font-size: 1.5em;\n  transition-duration: .25s;\n  text-shadow: 0 1px 0 black;\n  box-shadow: 0 1px 0 black; }\n\n.login-button:hover {\n  background-color: #FFA630;\n  color: black;\n  text-shadow: none; }\n\n.homepage {\n  width: 100%;\n  justify-content: center; }\n\n.homepage-title {\n  font-size: 2em;\n  font-family: \"Yeseva One\", cursive;\n  text-align: center;\n  margin-top: 30px;\n  margin-bottom: 30px; }\n\n.landing-container {\n  display: flex;\n  height: 100%;\n  width: 100%;\n  justify-content: center;\n  align-items: center; }\n\n.proposal-list {\n  width: 100%;\n  justify-content: center; }\n\n.proposal-list-container {\n  width: 95%;\n  display: flex;\n  flex-direction: row;\n  margin: auto; }\n\n.proposal-list-ul {\n  border: 2px solid black;\n  width: 30%;\n  height: 100%; }\n\n.short-proposal {\n  border-bottom: 1px solid black;\n  padding: 10px;\n  text-align: center;\n  transition-duration: .25s; }\n\n.short-proposal:hover {\n  background-color: #FFA630;\n  color: black; }\n\n.active-short-proposal {\n  background-color: #FFA630;\n  color: white; }\n\n.short-title {\n  font-family: \"Yeseva One\", cursive;\n  margin-bottom: 10px; }\n\n.short-author {\n  font-family: \"Josefin Sans\", sans-serif; }\n\n.target-item {\n  border: 5px solid black;\n  padding-top: 30px;\n  background-color: white;\n  display: flex;\n  align-items: flex-start;\n  width: 70%;\n  flex-direction: column; }\n\n.target-button-container {\n  display: flex;\n  flex-direction: row;\n  margin-top: 30px;\n  width: 100%;\n  justify-content: center; }\n\n.target-title {\n  font-size: 1.5em;\n  font-family: \"Yeseva One\", cursive;\n  margin: auto;\n  margin-bottom: 10px; }\n\n.target-author {\n  font-size: 1.25em;\n  font-weight: bold;\n  font-family: \"Josefin Sans\", sans-serif;\n  margin-bottom: 10px;\n  margin: auto; }\n\n.target-body {\n  font-size: 1em;\n  font-family: \"Josefin Sans\", sans-serif;\n  text-align: justify;\n  margin-left: 10px;\n  margin-top: 20px;\n  width: 100%; }\n\n.empty-target-message {\n  display: flex;\n  font-family: \"Josefin Sans\", sans-serif;\n  font-weight: bold;\n  font-size: 1.5em;\n  border: 5px solid black;\n  width: 100%;\n  align-items: center;\n  padding-right: 10px; }\n\n.target-button-container {\n  width: 100%;\n  justify-content: flex-start; }\n\n.target-button-container button {\n  font-family: \"Yeseva One\", cursive;\n  border: none;\n  outline: none;\n  border-radius: 20px;\n  margin: 10px;\n  font-size: 1em;\n  box-shadow: 0 1px 0 black;\n  width: 80px;\n  height: 30px;\n  background-color: black;\n  color: white;\n  transition-duration: .25s; }\n\n.target-button-container button:hover {\n  background-color: #FFA630;\n  color: black; }\n\n.dashboard {\n  margin-top: 30px; }\n\n.dashboard-link {\n  display: flex;\n  justify-content: center;\n  text-decoration: none; }\n\n.dashboard-link button {\n  font-family: \"Yeseva One\", cursive;\n  border: none;\n  outline: none;\n  border-radius: 20px;\n  margin: 10px;\n  font-size: 1em;\n  box-shadow: 0 1px 0 black;\n  width: 80px;\n  height: 30px;\n  background-color: black;\n  color: white;\n  transition-duration: .25s;\n  text-decoration: none;\n  color: white;\n  font-size: 1.25em;\n  width: 150px;\n  height: 50px;\n  text-shadow: 0 1px 0 black;\n  box-shadow: 0 1px 0 black; }\n\n.dashboard-link button:visited {\n  text-decoration: none; }\n\n.dashboard-link button:hover {\n  transition-duration: .25s;\n  background-color: #FFA630;\n  color: black;\n  text-shadow: none; }\n\n.Navigation {\n  background-color: #fff;\n  font-family: \"Yeseva One\", cursive;\n  width: 100%;\n  height: 50px; }\n  .Navigation .username {\n    padding: 17px;\n    float: right; }\n  .Navigation .nav-link {\n    height: 18px;\n    float: left;\n    padding: 15px;\n    text-decoration: none;\n    color: black;\n    border-top: 2px transparent solid; }\n    .Navigation .nav-link.current-link {\n      color: black;\n      border-top-color: #348AA7;\n      background-color: #FFA630; }\n  .Navigation .nav-link:hover {\n    color: black;\n    border-top-color: #348AA7;\n    background-color: #FFA630;\n    transition-duration: .25s; }\n  .Navigation .logout-btn {\n    border: none;\n    background: none;\n    color: #348AA7;\n    padding: 0 4px;\n    margin: 0;\n    cursor: pointer; }\n\n.counter-container {\n  width: 100%;\n  margin-left: 10px;\n  display: flex;\n  justify-content: flex-start;\n  align-items: center; }\n\n.counter-button {\n  font-family: \"Yeseva One\", cursive;\n  border: none;\n  outline: none;\n  border-radius: 20px;\n  margin: 10px;\n  font-size: 1em;\n  box-shadow: 0 1px 0 black;\n  width: 80px;\n  height: 30px;\n  background-color: black;\n  color: white;\n  transition-duration: .25s; }\n\n.counter-button:hover {\n  background-color: #FFA630;\n  color: black; }\n\n.counter-text {\n  font-family: \"Yeseva One\", cursive;\n  font-size: 1em; }\n\nbody, html, #root, .App {\n  display: flex;\n  flex-direction: column;\n  background-color: #348AA7;\n  height: 100%;\n  width: 100%; }\n\n.App-Body {\n  padding-top: 20px;\n  z-index: 1; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 590 */
+/* 592 */
 /***/ function(module, exports) {
 
 	/*
@@ -56009,7 +56282,7 @@
 
 
 /***/ },
-/* 591 */
+/* 593 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

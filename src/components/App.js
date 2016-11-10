@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import SignIn from '../containers/SignIn';
+import Navigation from '../containers/Navigation';
 
-const NavigationLink = (props) =>(
-  <Link
-    to={props.to}
-    activeClassName="current-link"
-    className="nav-link"
-  >
-    {props.children}
-  </Link>);
 
 class App extends Component {
 
@@ -21,24 +14,14 @@ class App extends Component {
     return this.props.isUserSignedIn ? this.props.children :
       (<SignIn />);
   }
-  renderUsername() {
-    return this.props.isUserSignedIn ? this.props.currentUser.username : 'Logged Out';
-  }
   onClickLogout() {
     this.props.logoutUser();
   }
   render() {
     return (
       <div className="App">
-        <div className="Navigation">
-          <NavigationLink to="/Home">Home</NavigationLink>
-          <NavigationLink to="/Presentations">Presentations</NavigationLink>
-          <NavigationLink to="/AddProposal">Create a Proposal</NavigationLink>
-          <span className="username">
-            {this.renderUsername()}
-            <button className="logout-btn" onClick={this.onClickLogout}>( Logout )</button>
-          </span>
-        </div>
+        <h1 className="header">Lunch and Learn
+        </h1>
         <div className="App-Body">
           {this.renderChildren()}
         </div>

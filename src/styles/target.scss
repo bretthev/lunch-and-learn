@@ -1,13 +1,11 @@
 @import 'variables';
 
 .target-item {
-  padding-top: 30px;
   background-color: white;
   display: flex;
-  align-items: flex-start;
-  width: 70%;
+  width: 80%;
   flex-direction: column;
-  padding-left: 15px;
+  height: 60vh;
 }
 
 .target-button-container {
@@ -19,44 +17,68 @@
 }
 
 .target-title {
-  font-size: 1.5em;
+  font-size: 2em;
   font-family: $primary-font;
-  margin-bottom: 20px;
+  margin-left: 5%;
+  margin-top: 2%;
+  font-weight: bold;
 }
 
 .target-author {
   font-size: 1.25em;
   font-weight: bold;
-  font-family: $secondary-font;
-  margin-bottom: 10px;
+  font-family: $primary-font;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  margin-top: 2%;
 }
 
 .target-body {
   font-size: 1em;
-  font-family: $secondary-font;
-  text-align: justify;
+  font-family: $primary-font;
+  margin-left: 5%;
+  margin-top: 20px;
   width: 100%;
+}
+
+.target-location {
+  font-size: 1.5em;
+  font-family: $primary-font;
+  margin-left: 5%;
+  margin-top: 2%;
 }
 
 .empty-target-message {
-  font-family: $secondary-font;
+  display: flex;
+  font-family: $primary-font;
   font-weight: bold;
   font-size: 1.5em;
   width: 100%;
-  text-align: center;
+  padding-left: 5%;
+  padding-top: 5%;
 }
+
+.target-button-container {
+  width: 100%;
+  justify-content: flex-start;
+  margin-left: 5%;
+}
+
 
 .target-button-container button {
   @include button-styles;
-  margin: 10px;
-  font-size: 1em;
-  text-shadow: 0 1px 0 black;
-  box-shadow: 0 1px 0 black;
-  color: white;
-  transition-duration: .25s;
+  background-color: $primary-color;
 }
 
 .target-button-container button:hover {
   background-color: $accent-color;
-  color: $hover-text-color;
+  color: white;
+}
+
+.edit-item-button {
+  margin-right: 10px;
+}
+
+.delete-item-button {
+  margin-right: 10px;
 }

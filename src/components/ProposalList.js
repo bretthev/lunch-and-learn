@@ -1,7 +1,9 @@
 import React from 'react';
 import ShortDisplayItem from './ShortDisplayItem';
 import TargetItem from './TargetItem';
+import Navigation from '../containers/Navigation';
 import { map } from 'lodash';
+
 
 export class ProposalList extends React.Component {
 
@@ -13,7 +15,7 @@ export class ProposalList extends React.Component {
   renderTargetItem() {
     return (
       this.props.targetProposal.title === '' ?
-      <h2 className="empty-target-message target-item">Click an item to the left to see more info.</h2>
+      <h2 className="empty-target-message target-item">Click a proposal on the right to see more info.</h2>
       :
       <TargetItem deleteProposal={this.props.deleteProposal} updateCounter={this.props.updateLikes} clearTarget={this.props.clearTargetProposal} uid={this.props.currentUser.uid} {...this.props.targetProposal}/>
     )
@@ -30,17 +32,21 @@ export class ProposalList extends React.Component {
       return (
         <section className="proposal-list">
           <section className="proposal-list-container">
+          {this.renderTargetItem()}
               <ul className="proposal-list-ul">
                 {this.displayShortProposals()}
               </ul>
-          {this.renderTargetItem()}
           </section>
+          <Navigation />
         </section>
       )
     }
     else {
       return (
-        <h3>No proposals.</h3>
+        <section className="proposal-list">
+          <h3>No proposals.</h3>
+          <Navigation />
+        </section>
       )
     }
   }

@@ -1,0 +1,27 @@
+@import 'variables';
+
+.counter-container {
+  width: 100%;
+  margin-right: 10%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.counter-button {
+  @include button-styles;
+  color: white;
+  margin-right: 10px;
+  width: 200px;
+}
+
+.counter-button:hover {
+  background-color: $accent-color;
+  color: white;
+}
+
+.counter-text {
+  font-family: $primary-font;
+  color: $primary-color;
+  font-size: 2em;
+}
