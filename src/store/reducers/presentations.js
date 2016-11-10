@@ -2,6 +2,9 @@ const presentations = ( state = [], action ) => {
    switch(action.type) {
       case 'FETCH_PRESENTATIONS_SUCCESS':
         return action.presentationsWithKeys
+      case 'DELETE_PRESENTATION':
+        const presentationKey = action.key
+        return state.filter(presentation => presentation.key !== action.key)
       default: return state
    }
  }

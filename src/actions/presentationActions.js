@@ -80,5 +80,15 @@ const updateRsvps = (item, number, uid) => {
   getPresentationsFromFirebase()
 }
 
+const deletePresentation = (key) => {
+  firebase.database().ref(`presentations/${key}`).remove();
+  return (dispatch, getState) => {
+    dispatch({
+      type: 'DELETE_PRESENTATION',
+      key
+    })
+  }
+}
 
-export { getPresentationsFromDatabase, addProposalToPresentations, grabTargetPresentation, clearTargetPresentation, updateRsvps }
+
+export { getPresentationsFromDatabase, addProposalToPresentations, grabTargetPresentation, clearTargetPresentation, updateRsvps, deletePresentation }

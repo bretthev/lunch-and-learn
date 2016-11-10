@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getPresentationsFromDatabase, grabTargetPresentation, updateRsvps } from '../actions/presentationActions';
+import { getPresentationsFromDatabase, grabTargetPresentation, clearTargetPresentation, updateRsvps, deletePresentation } from '../actions/presentationActions';
 import { bindActionCreators } from 'redux';
 import PresentationList from '../components/PresentationList';
 import { getTargetPresentation, getPresentations } from '../store/reducers/rootReducer';
@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getPresentationsFromDatabase, grabTargetPresentation, updateRsvps }, dispatch)
+  return bindActionCreators({ getPresentationsFromDatabase, grabTargetPresentation, clearTargetPresentation, updateRsvps, deletePresentation }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PresentationList)
