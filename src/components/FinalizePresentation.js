@@ -17,9 +17,10 @@ const FinalizePresentation = ({ currentUser, addProposalToPresentations, targetP
         onSubmit={ (e) => {
           e.preventDefault()
           addProposalToPresentations({author: targetProposal.author, title: targetProposal.title, body: targetProposal.body, timestamp: Date.now(), location: presentationLocation.value})
+          presentationLocation.value=''
         }}>
           <input placeholder="Add a location" className="location-input" ref={node => { presentationLocation = node }}/>
-          <button className="finalize-button" disabled={isDisabled}>
+          <button className="finalize-button">
             Finalize presentation
           </button>
         </form>
