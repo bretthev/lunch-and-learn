@@ -55,6 +55,10 @@
   margin: 2% auto 0;
 }
 
+.submit-proposal-button:disabled, .finalize-button:disabled {
+  background-color: grey;
+}
+
 .submit-proposal-button:hover, .finalize-button:hover {
   background-color: $accent-color;
 }
