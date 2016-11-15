@@ -4,6 +4,8 @@ const users = ( state = [], action ) => {
       return action.usersWithKeys
     case 'ADD_USER':
       return state
+    case 'MAKE_ADMIN':
+      return state
     default: return state
   }
 }

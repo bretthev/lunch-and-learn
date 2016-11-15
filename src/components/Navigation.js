@@ -20,6 +20,7 @@ const Navigation = (currentUser, logoutUser) => {
       <NavigationLink to="/Home">Home</NavigationLink>
       <NavigationLink to="/Presentations">Presentations</NavigationLink>
       <NavigationLink to="/AddProposal">Create a Proposal</NavigationLink>
+      <NavigationLink to="/UserList">Users</NavigationLink>
       <span className="username">
         Hello {currentUser.currentUser.username}!
       </span>

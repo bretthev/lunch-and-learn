@@ -81,10 +81,16 @@ const logoutUser = () => (dispatch) =>
     type: 'USER_LOGGED_OUT',
   });
 
+const makeUserAdmin = (uid) => {
+  firebase.database().ref(`users/${uid}`).update({ isAdmin: true })
+  return (dispatch) => {
+    type: 'MAKE_ADMIN'
+  }
+}
 
 
 
-export { firebaseApp, signIn, getUsersFromDatabase, listenForUser, logoutUser };
+export { firebaseApp, signIn, getUsersFromDatabase, listenForUser, logoutUser, makeUserAdmin };
 
 export const getIsUserSignedIn = (state) =>
   fromReducer.getIsUserSignedIn(state.currentUser);
