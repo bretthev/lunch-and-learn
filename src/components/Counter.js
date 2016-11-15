@@ -14,7 +14,7 @@ const Counter = (item) => {
   if (item.isPresentation) {
     buttonText = hasRsvpd ? "Cancel" : "RSVP";
     } else {
-       buttonText = hasLiked ? "Unlike" : "Like";
+    buttonText = hasLiked ? "Unlike" : "Like";
   }
 
   const buttonElement = <button className="counter-button" onClick={e => {item.updateCounter(item, counterChange, item.uid)}}>{buttonText}</button>
