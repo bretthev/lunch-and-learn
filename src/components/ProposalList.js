@@ -18,7 +18,7 @@ export class ProposalList extends React.Component {
       this.props.targetProposal.title === '' ?
       <h2 className="empty-target-message target-item">Click a proposal on the right to see more info.</h2>
       :
-      <TargetItem deleteProposal={this.props.deleteProposal} updateCounter={this.props.updateLikes} clearTarget={this.props.clearTargetProposal} uid={this.props.currentUser.uid} {...this.props.targetProposal}/>
+      <TargetItem deleteProposal={this.props.deleteProposal} updateCounter={this.props.updateLikes} clearTarget={this.props.clearTargetProposal} uid={this.props.currentUser.uid} currentUserName={this.props.currentUser.username} {...this.props.targetProposal}/>
     )
   }
 

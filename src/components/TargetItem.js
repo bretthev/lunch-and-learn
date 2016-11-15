@@ -23,6 +23,13 @@ const TargetItem = (item) => {
                             Edit
                           </button>
                         </Link>
+    const displayTargetButtons =
+                        <div className="target-button-container">
+                            {editButton}
+                            {deleteButton}
+                            {finalizeButton}
+                          <Counter {...item} />
+                        </div>
 
   return (
     <article className="target-item">
@@ -30,16 +37,7 @@ const TargetItem = (item) => {
       {item.location ? <h3 className="target-location">Location: {item.location}</h3> : ''}
       <h3 className="target-author">{item.author}</h3>
       <p className="target-body">{item.body}</p>
-
-      <div className="target-button-container">
-
-        {editButton}
-        {deleteButton}
-        {finalizeButton}
-
-        <Counter {...item} />
-      </div>
-
+      { item.author === item.currentUserName ? {dispalyTargetButtons} : ''}
     </article>
   )
 }

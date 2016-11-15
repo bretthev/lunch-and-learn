@@ -8,8 +8,12 @@ const UserList = ({ users, makeUserAdmin }) => {
   {return <li className="user-info-item" key={user.uid}>
       <h2 className="user-list-name">{user.username}</h2>
       <h2 className="user-email">{user.email}</h2>
+      {user.isAdmin ?
       <button className="make-admin-button"
-      onClick={e => makeUserAdmin(user.key)}>Make Admin</button>
+      onClick={e => makeUserAdmin(user.key)}>
+        Make Admin
+      </button>
+      : ''}
     </li>})
   return (
     <section className="user-list-container">
